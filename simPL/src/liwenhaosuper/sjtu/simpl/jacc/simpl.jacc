@@ -1,0 +1,53 @@
+
+%package liwenhaosuper.sjtu.simpl.jacc
+%class SimPLParser
+%interface SimPLTokens	
+
+/**
+ Token part
+**/
+//type
+%token INTEGER BOOLEAN UNIT 
+// COLONCOLON: ::,COLONEQUAL: :=
+%token ',' ';' COLONCOLON COLONEQUAL
+//nop  
+//NOT: not
+%token '~' NOT
+//bop
+//AND: and OR: or
+%token '+' '-' '*' '/' '<' '>' '=' AND OR
+//ALLOW: ->
+%token '(' ')' '[' ']' ALLOW
+//keyword
+%token LET IN IF THEN ELSE WHILE DO END FST SND HEAD TAIL FUN TRUE FALSE NIL
+ 
+%left  '+' '-'
+%left  '*' '/'
+
+
+%{
+import liwenhaosuper.sjtu.simpl.syntax.*;
+%} 
+
+//grammer
+%%
+prog : prog ';' expr    { System.out.println($3); }
+     | expr             { System.out.println($1); }
+     ;
+expr : expr '+' expr	{ $$ = $1 + $3; }
+     | expr '-' expr	{ $$ = $1 - $3; }
+     | expr '*' expr	{ $$ = $1 * $3; }
+     | expr '/' expr	{ $$ = $1 / $3; }
+     | '(' expr ')'     { $$ = $2; }
+     | INTEGER          { $$ = $1; }
+     ;
+     
+%%
+
+
+	public static void main(String[] args){
+		SimPLLexer lexer = new SimPLLexer();
+		lexer.nextToken();
+		SimPLParser parser = new SimPLParser();
+		parser.parse();
+	}
