@@ -1,10 +1,12 @@
 package liwenhaosuper.sjtu.simpl.jacc;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 import liwenhaosuper.sjtu.simpl.syntax.IntValue;
+import liwenhaosuper.sjtu.simpl.type.Ident;
 
 public class SimPLLexer implements SimPLTokens{
 	private int c =  ' ';
@@ -32,9 +34,17 @@ public class SimPLLexer implements SimPLTokens{
 		KEYWORDS.put("OR",OR);
 		KEYWORDS.put("NOT",NOT);
 	}
-	/** Read a single input character from standard input.*/
+	/** Read a single input character from standard input or from stream.*/
 	private void nextChar() {
   		if (c>=0) {
+  			if(input!=null){
+  				try {
+					c = input.read();
+				} catch (IOException e) {
+					c = -1;
+				}
+  				return;
+  			}
     		try {
       			c = System.in.read();
     		} catch (Exception e) {
@@ -48,6 +58,9 @@ public class SimPLLexer implements SimPLTokens{
 	}
 	public SimPLLexer(InputStream in){
 		this.input = in;
+	}
+	public SimPLLexer(){
+		
 	}
     /** Return the token code for the current lexeme.
      */
@@ -136,7 +149,22 @@ public class SimPLLexer implements SimPLTokens{
     					nextChar(); 
     				}while(Character.isDigit(c));
     				yylval = new IntValue(n);
+    				return token = INTEGER;
     			}
+    			if (Character.isLetter(c)&&Character.isLowerCase(c)) {
+    				StringBuilder sb = new StringBuilder();
+    				do {
+    					sb.append((char)c);
+    					nextChar();
+    				}while (Character.isLetterOrDigit(c));
+    				String name = sb.toString();
+    				if (KEYWORDS.containsKey(name)) {
+    					return token = KEYWORDS.get(name);
+    				}
+    				yylval = new Ident(name);
+    				return token = IDENT;
+    			}
+    			error("Unexpected character: "+c);
     		}
       }
     }

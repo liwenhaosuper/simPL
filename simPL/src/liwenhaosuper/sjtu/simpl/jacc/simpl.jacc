@@ -7,7 +7,7 @@
  Token part
 **/
 //type
-%token INTEGER BOOLEAN UNIT 
+%token INTEGER BOOLEAN UNIT IDENT
 // COLONCOLON: ::,COLONEQUAL: :=
 %token ',' ';' COLONCOLON COLONEQUAL
 //nop  
@@ -21,9 +21,14 @@
 //keyword
 %token LET IN IF THEN ELSE WHILE DO END FST SND HEAD TAIL FUN TRUE FALSE NIL
  
+%left  NOT '~'
+%right '*' '/' 
 %left  '+' '-'
-%left  '*' '/'
-
+%left  '=' '>' '<'
+%left AND OR
+%left COLONCOLON COLONEQUAL
+%right ALLOW
+ 
 
 %{
 import liwenhaosuper.sjtu.simpl.syntax.*;
@@ -31,23 +36,67 @@ import liwenhaosuper.sjtu.simpl.syntax.*;
 
 //grammer
 %%
-prog : prog ';' expr    { System.out.println($3); }
-     | expr             { System.out.println($1); }
-     ;
-expr : expr '+' expr	{ $$ = $1 + $3; }
-     | expr '-' expr	{ $$ = $1 - $3; }
-     | expr '*' expr	{ $$ = $1 * $3; }
-     | expr '/' expr	{ $$ = $1 / $3; }
-     | '(' expr ')'     { $$ = $2; }
-     | INTEGER          { $$ = $1; }
+
+prog : prog ';' expr    {  }
+     | expr             {  }
      ;
      
+expr : IDENT			{	}
+	 | val				{ $$ = $1; }
+	 | expr COLONCOLON expr {  	}
+ 	 | '(' expr ',' expr ')' { }
+ 	 | '(' expr expr ')'  {}
+ 	 | expr bop expr {} 
+ 	 | uop expr	{} 
+ 	 | LET IDENT '=' expr IN expr END  {} 
+ 	 | IF expr THEN expr ELSE expr END  { }
+ 	 | expr COLONEQUAL expr {} 
+ 	 | expr ';' expr {} 
+ 	 | WHILE expr DO expr END  {}
+ 	 | FST expr {}
+ 	 | SND expr {}
+ 	 | HEAD expr {}
+ 	 | TAIL expr {}
+ 	 | '(' expr ')'  {}
+ 	 ;
+
+val  : INTEGER	{ }
+	 | BOOLEAN  {}
+	 | NIL	{}
+	 | '(' ')' {}
+	 | FUN IDENT ALLOW expr { }
+	 | '(' val ',' val ')' {}
+	 | val COLONCOLON val {}  
+	 ;	
+ 	
+bop  : '+' { }
+	 | '-' {}
+	 | '*' {}
+	 | '/' {}
+	 | '=' {}
+	 | '>' {}
+	 | '<' {}
+	 | AND {}
+	 | OR {}
+	 ;
+
+uop  : '~' {}
+	 |  NOT {}
+	 ;
+	 
+ 
 %%
-
-
+	
+	private SimPLLexer lexer;
+	SimPLParser(SimPLLexer lexer){
+		this.lexer = lexer;
+	}
+	private void yyerror(String msg){
+		lexer.error(msg);
+	}
 	public static void main(String[] args){
 		SimPLLexer lexer = new SimPLLexer();
 		lexer.nextToken();
-		SimPLParser parser = new SimPLParser();
+		SimPLParser parser = new SimPLParser(lexer);
 		parser.parse();
 	}

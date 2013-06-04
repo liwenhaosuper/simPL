@@ -1,4 +1,4 @@
-// Output created by jacc on Tue Jun 04 10:05:14 CST 2013
+// Output created by jacc on Tue Jun 04 13:06:30 CST 2013
 
 package liwenhaosuper.sjtu.simpl.jacc;
 
@@ -16,20 +16,21 @@ interface SimPLTokens {
     int FST = 10;
     int FUN = 11;
     int HEAD = 12;
-    int IF = 13;
-    int IN = 14;
-    int INTEGER = 15;
-    int LET = 16;
-    int NIL = 17;
-    int NOT = 18;
-    int OR = 19;
-    int SND = 20;
-    int TAIL = 21;
-    int THEN = 22;
-    int TRUE = 23;
-    int UNIT = 24;
-    int WHILE = 25;
-    int error = 26;
+    int IDENT = 13;
+    int IF = 14;
+    int IN = 15;
+    int INTEGER = 16;
+    int LET = 17;
+    int NIL = 18;
+    int NOT = 19;
+    int OR = 20;
+    int SND = 21;
+    int TAIL = 22;
+    int THEN = 23;
+    int TRUE = 24;
+    int UNIT = 25;
+    int WHILE = 26;
+    int error = 27;
     // '(' (code=40)
     // ')' (code=41)
     // '*' (code=42)
@@ -43,7 +44,5 @@ interface SimPLTokens {
     // '>' (code=62)
     // '[' (code=91)
     // ']' (code=93)
-    // '{' (code=123)
-    // '}' (code=125)
     // '~' (code=126)
 }
