@@ -70,7 +70,8 @@ public class SimPLLexer implements SimPLTokens{
 		column = 0;
 	}
 	public SimPLLexer(){
-		
+		line = 1;
+		column = 0;
 	}
     /** Return the token code for the current lexeme.
      */
@@ -149,8 +150,10 @@ public class SimPLLexer implements SimPLTokens{
     		}
     		case ',': nextChar();
     			return token = ',';
-    		case '$': nextChar();
-    			return token = '$';
+    		case '$': 
+    			System.out.println("getting result:");
+    			//return token = '$';
+    			return token = ENDINPUT;
     		default:
     			if (Character.isDigit(c)) {
     				int n = 0; 

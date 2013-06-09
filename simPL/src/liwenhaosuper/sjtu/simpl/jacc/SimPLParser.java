@@ -1,4 +1,4 @@
-// Output created by jacc on Sun Jun 09 20:32:49 CST 2013
+// Output created by jacc on Sun Jun 09 23:28:53 CST 2013
 
 package liwenhaosuper.sjtu.simpl.jacc;
 
@@ -1821,74 +1821,26 @@ class SimPLParser implements SimPLTokens {
 
     private int yys31() {
         switch (yytok) {
+            case ALLOW:
             case '$':
+            case UNIT:
             case FALSE:
             case error:
-            case UNIT:
             case TRUE:
-            case ALLOW:
                 return 155;
-            case AND:
-                return 19;
-            case COLONCOLON:
-                return 20;
-            case COLONEQUAL:
-                return 21;
-            case OR:
-                return 22;
-            case '*':
-                return 23;
-            case '+':
-                return 24;
-            case '-':
-                return 25;
-            case '/':
-                return 26;
-            case ';':
-                return 27;
-            case '<':
-                return 28;
-            case '=':
-                return 29;
-            case '>':
-                return 30;
         }
         return yyr23();
     }
 
     private int yys33() {
         switch (yytok) {
+            case ALLOW:
             case '$':
+            case UNIT:
             case FALSE:
             case error:
-            case UNIT:
             case TRUE:
-            case ALLOW:
                 return 155;
-            case AND:
-                return 19;
-            case COLONCOLON:
-                return 20;
-            case COLONEQUAL:
-                return 21;
-            case OR:
-                return 22;
-            case '*':
-                return 23;
-            case '+':
-                return 24;
-            case '-':
-                return 25;
-            case '/':
-                return 26;
-            case ';':
-                return 27;
-            case '<':
-                return 28;
-            case '=':
-                return 29;
-            case '>':
-                return 30;
         }
         return yyr25();
     }
@@ -1927,111 +1879,39 @@ class SimPLParser implements SimPLTokens {
 
     private int yys36() {
         switch (yytok) {
+            case ALLOW:
             case '$':
+            case UNIT:
             case FALSE:
             case error:
-            case UNIT:
             case TRUE:
-            case ALLOW:
                 return 155;
-            case AND:
-                return 19;
-            case COLONCOLON:
-                return 20;
-            case COLONEQUAL:
-                return 21;
-            case OR:
-                return 22;
-            case '*':
-                return 23;
-            case '+':
-                return 24;
-            case '-':
-                return 25;
-            case '/':
-                return 26;
-            case ';':
-                return 27;
-            case '<':
-                return 28;
-            case '=':
-                return 29;
-            case '>':
-                return 30;
         }
         return yyr17();
     }
 
     private int yys37() {
         switch (yytok) {
+            case ALLOW:
             case '$':
+            case UNIT:
             case FALSE:
             case error:
-            case UNIT:
             case TRUE:
-            case ALLOW:
                 return 155;
-            case AND:
-                return 19;
-            case COLONCOLON:
-                return 20;
-            case COLONEQUAL:
-                return 21;
-            case OR:
-                return 22;
-            case '*':
-                return 23;
-            case '+':
-                return 24;
-            case '-':
-                return 25;
-            case '/':
-                return 26;
-            case ';':
-                return 27;
-            case '<':
-                return 28;
-            case '=':
-                return 29;
-            case '>':
-                return 30;
         }
         return yyr24();
     }
 
     private int yys38() {
         switch (yytok) {
+            case ALLOW:
             case '$':
+            case UNIT:
             case FALSE:
             case error:
-            case UNIT:
             case TRUE:
-            case ALLOW:
                 return 155;
-            case AND:
-                return 19;
-            case COLONCOLON:
-                return 20;
-            case COLONEQUAL:
-                return 21;
-            case OR:
-                return 22;
-            case '*':
-                return 23;
-            case '+':
-                return 24;
-            case '-':
-                return 25;
-            case '/':
-                return 26;
-            case ';':
-                return 27;
-            case '<':
-                return 28;
-            case '=':
-                return 29;
-            case '>':
-                return 30;
         }
         return yyr26();
     }
@@ -2147,21 +2027,26 @@ class SimPLParser implements SimPLTokens {
 
     private int yys42() {
         switch (yytok) {
+            case ALLOW:
             case '$':
+            case UNIT:
             case FALSE:
             case error:
-            case UNIT:
             case TRUE:
-            case ALLOW:
                 return 155;
-            case AND:
-                return 19;
-            case COLONCOLON:
-                return 20;
-            case COLONEQUAL:
-                return 21;
-            case OR:
-                return 22;
+        }
+        return yyr16();
+    }
+
+    private int yys43() {
+        switch (yytok) {
+            case FALSE:
+            case TRUE:
+            case UNIT:
+            case '$':
+            case ALLOW:
+            case error:
+                return 155;
             case '*':
                 return 23;
             case '+':
@@ -2170,33 +2055,12 @@ class SimPLParser implements SimPLTokens {
                 return 25;
             case '/':
                 return 26;
-            case ';':
-                return 27;
             case '<':
                 return 28;
             case '=':
                 return 29;
             case '>':
                 return 30;
-        }
-        return yyr16();
-    }
-
-    private int yys43() {
-        switch (yytok) {
-            case ALLOW:
-            case UNIT:
-            case TRUE:
-            case '$':
-            case error:
-            case FALSE:
-                return 155;
-            case COLONCOLON:
-                return 20;
-            case COLONEQUAL:
-                return 21;
-            case ';':
-                return 27;
         }
         return yyr14();
     }
@@ -2204,200 +2068,172 @@ class SimPLParser implements SimPLTokens {
     private int yys44() {
         switch (yytok) {
             case ALLOW:
-            case UNIT:
             case TRUE:
-            case '$':
             case error:
+            case UNIT:
+            case '$':
             case FALSE:
                 return 155;
-            case COLONCOLON:
-                return 20;
-            case COLONEQUAL:
-                return 21;
-            case ';':
-                return 27;
+            case AND:
+                return 19;
+            case OR:
+                return 22;
+            case '*':
+                return 23;
+            case '+':
+                return 24;
+            case '-':
+                return 25;
+            case '/':
+                return 26;
+            case '<':
+                return 28;
+            case '=':
+                return 29;
+            case '>':
+                return 30;
         }
         return yyr4();
     }
 
     private int yys45() {
         switch (yytok) {
-            case ALLOW:
-            case UNIT:
-            case TRUE:
-            case '$':
             case error:
+            case ALLOW:
+            case '$':
+            case TRUE:
+            case UNIT:
             case FALSE:
                 return 155;
+            case AND:
+                return 19;
             case COLONCOLON:
                 return 20;
             case COLONEQUAL:
                 return 21;
-            case ';':
-                return 27;
+            case OR:
+                return 22;
+            case '*':
+                return 23;
+            case '+':
+                return 24;
+            case '-':
+                return 25;
+            case '/':
+                return 26;
+            case '<':
+                return 28;
+            case '=':
+                return 29;
+            case '>':
+                return 30;
         }
         return yyr20();
     }
 
     private int yys46() {
         switch (yytok) {
-            case ALLOW:
-            case UNIT:
-            case TRUE:
-            case '$':
-            case error:
             case FALSE:
+            case TRUE:
+            case UNIT:
+            case '$':
+            case ALLOW:
+            case error:
                 return 155;
-            case COLONCOLON:
-                return 20;
-            case COLONEQUAL:
-                return 21;
-            case ';':
-                return 27;
+            case '*':
+                return 23;
+            case '+':
+                return 24;
+            case '-':
+                return 25;
+            case '/':
+                return 26;
+            case '<':
+                return 28;
+            case '=':
+                return 29;
+            case '>':
+                return 30;
         }
         return yyr15();
     }
 
     private int yys47() {
         switch (yytok) {
-            case '$':
-            case FALSE:
-            case error:
             case UNIT:
             case TRUE:
+            case FALSE:
+            case error:
             case ALLOW:
+            case '$':
                 return 155;
-            case AND:
-                return 19;
-            case COLONCOLON:
-                return 20;
-            case COLONEQUAL:
-                return 21;
-            case OR:
-                return 22;
             case '*':
                 return 23;
-            case '+':
-                return 24;
-            case '-':
-                return 25;
             case '/':
                 return 26;
-            case ';':
-                return 27;
-            case '<':
-                return 28;
-            case '=':
-                return 29;
-            case '>':
-                return 30;
         }
         return yyr9();
     }
 
     private int yys48() {
         switch (yytok) {
+            case UNIT:
+            case TRUE:
             case FALSE:
             case error:
-            case TRUE:
-            case UNIT:
             case ALLOW:
             case '$':
                 return 155;
-            case AND:
-                return 19;
-            case COLONCOLON:
-                return 20;
-            case COLONEQUAL:
-                return 21;
-            case OR:
-                return 22;
-            case ';':
-                return 27;
-            case '<':
-                return 28;
-            case '=':
-                return 29;
-            case '>':
-                return 30;
+            case '*':
+                return 23;
+            case '/':
+                return 26;
         }
         return yyr7();
     }
 
     private int yys49() {
         switch (yytok) {
+            case UNIT:
+            case TRUE:
             case FALSE:
             case error:
-            case TRUE:
-            case UNIT:
             case ALLOW:
             case '$':
                 return 155;
-            case AND:
-                return 19;
-            case COLONCOLON:
-                return 20;
-            case COLONEQUAL:
-                return 21;
-            case OR:
-                return 22;
-            case ';':
-                return 27;
-            case '<':
-                return 28;
-            case '=':
-                return 29;
-            case '>':
-                return 30;
+            case '*':
+                return 23;
+            case '/':
+                return 26;
         }
         return yyr8();
     }
 
     private int yys50() {
         switch (yytok) {
-            case '$':
-            case FALSE:
-            case error:
             case UNIT:
             case TRUE:
+            case FALSE:
+            case error:
             case ALLOW:
+            case '$':
                 return 155;
-            case AND:
-                return 19;
-            case COLONCOLON:
-                return 20;
-            case COLONEQUAL:
-                return 21;
-            case OR:
-                return 22;
             case '*':
                 return 23;
-            case '+':
-                return 24;
-            case '-':
-                return 25;
             case '/':
                 return 26;
-            case ';':
-                return 27;
-            case '<':
-                return 28;
-            case '=':
-                return 29;
-            case '>':
-                return 30;
         }
         return yyr10();
     }
 
     private int yys51() {
         switch (yytok) {
-            case '$':
-            case FALSE:
             case error:
-            case UNIT:
-            case TRUE:
             case ALLOW:
+            case '$':
+            case TRUE:
+            case UNIT:
+            case FALSE:
                 return 155;
             case AND:
                 return 19;
@@ -2415,8 +2251,6 @@ class SimPLParser implements SimPLTokens {
                 return 25;
             case '/':
                 return 26;
-            case ';':
-                return 27;
             case '<':
                 return 28;
             case '=':
@@ -2429,69 +2263,63 @@ class SimPLParser implements SimPLTokens {
 
     private int yys52() {
         switch (yytok) {
+            case UNIT:
             case ALLOW:
             case TRUE:
-            case UNIT:
             case error:
             case FALSE:
             case '$':
                 return 155;
-            case AND:
-                return 19;
-            case COLONCOLON:
-                return 20;
-            case COLONEQUAL:
-                return 21;
-            case OR:
-                return 22;
-            case ';':
-                return 27;
+            case '*':
+                return 23;
+            case '+':
+                return 24;
+            case '-':
+                return 25;
+            case '/':
+                return 26;
         }
         return yyr13();
     }
 
     private int yys53() {
         switch (yytok) {
+            case UNIT:
             case ALLOW:
             case TRUE:
-            case UNIT:
             case error:
             case FALSE:
             case '$':
                 return 155;
-            case AND:
-                return 19;
-            case COLONCOLON:
-                return 20;
-            case COLONEQUAL:
-                return 21;
-            case OR:
-                return 22;
-            case ';':
-                return 27;
+            case '*':
+                return 23;
+            case '+':
+                return 24;
+            case '-':
+                return 25;
+            case '/':
+                return 26;
         }
         return yyr11();
     }
 
     private int yys54() {
         switch (yytok) {
+            case UNIT:
             case ALLOW:
             case TRUE:
-            case UNIT:
             case error:
             case FALSE:
             case '$':
                 return 155;
-            case AND:
-                return 19;
-            case COLONCOLON:
-                return 20;
-            case COLONEQUAL:
-                return 21;
-            case OR:
-                return 22;
-            case ';':
-                return 27;
+            case '*':
+                return 23;
+            case '+':
+                return 24;
+            case '-':
+                return 25;
+            case '/':
+                return 26;
         }
         return yyr12();
     }
@@ -2723,15 +2551,35 @@ class SimPLParser implements SimPLTokens {
 
     private int yys62() {
         switch (yytok) {
+            case error:
+            case ALLOW:
+            case '$':
             case TRUE:
             case UNIT:
-            case ALLOW:
             case FALSE:
-            case '$':
-            case error:
                 return 155;
-            case ';':
-                return 27;
+            case AND:
+                return 19;
+            case COLONCOLON:
+                return 20;
+            case COLONEQUAL:
+                return 21;
+            case OR:
+                return 22;
+            case '*':
+                return 23;
+            case '+':
+                return 24;
+            case '-':
+                return 25;
+            case '/':
+                return 26;
+            case '<':
+                return 28;
+            case '=':
+                return 29;
+            case '>':
+                return 30;
         }
         return yyr32();
     }
@@ -3066,7 +2914,7 @@ class SimPLParser implements SimPLTokens {
     }
 
     private int yyr1() { // prog : expr
-        { System.out.println("Start");app = ((Expression)yysv[yysp-1]);System.out.println("End");}
+        { System.out.println("Start");app = ((Expression)yysv[yysp-1]);System.out.println(app);System.out.println("End");}
         yysv[yysp-=1] = yyrv;
         return 1;
     }

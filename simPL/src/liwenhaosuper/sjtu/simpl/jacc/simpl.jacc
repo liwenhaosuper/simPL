@@ -21,20 +21,27 @@
 %token '$'
 //keyword
 %token LET IN IF THEN ELSE WHILE DO END FST SND HEAD TAIL FUN TRUE FALSE NIL
- 
-%left  NOT '~'
-%right '*' '/' 
-%left  '+' '-'
-%left  '=' '>' '<'
-%left AND OR
-%right COLONCOLON COLONEQUAL
+
+// level from low to high:
+%left ';' 
 %right ALLOW
+%right COLONEQUAL
+%left COLONCOLON
+%left AND OR
+%left  '=' '>' '<'
+%left  '+' '-'
+%right '*' '/'
+%left  NOT '~'
+%left FST SND HEAD TAIL 
+
+
  
 %type <Expression> expr
-//%type <Expression> exprs
 %type <Value> val
 
 %type <Variable> IDENT
+
+%start prog
 
 %{
 import liwenhaosuper.sjtu.simpl.syntax.*;
@@ -43,16 +50,12 @@ import liwenhaosuper.sjtu.simpl.syntax.*;
 //grammer
 %%
 
-prog : expr  { System.out.println("Start");app = $1;System.out.println("End");}
+prog : expr { System.out.println("Start");app = $1;System.out.println(app);System.out.println("End");}
      ;
-
-//exprs : expr exprs '$'{ System.out.println("Sequence:"+$1+","+$2);$$ = new Sequence($1,$2);}
-//	  | expr '$'	{ System.out.println("exprs:"+$1);$$ = $1; }
-//	  ;
 
 expr : IDENT			{ System.out.println("Ident:"+$1);$$ = $1;}
 	 | val				{ System.out.println("Val:"+$1);$$ = $1; }
-	 | expr COLONCOLON expr { System.out.println("List:"+$1+","+$2);$$ = new List($1,$3);	}  //conflict
+	 | expr COLONCOLON expr { System.out.println("List:"+$1+","+$2);$$ = new List($1,$3);	}
  	 | '(' expr ',' expr ')' { System.out.println("Pair:"+$2+","+$4);$$ = new Pair($2,$4); }
  	 | '(' expr expr ')'  { $$ = new Application($2,$3); }
  	 
@@ -88,6 +91,7 @@ val  : INTEGER	{ $$ = $1; } /*new IntValue(Integer.parseInt($1))*/
 	 | NIL	{ $$ = new Nil(); }
 	 | '(' ')' { $$ = new Nop();} 
 	 | FUN IDENT ALLOW expr { $$ = new AnonymousFunction($2,$4); }
+	 //conflict
 	 //| '(' val ',' val ')' { $$ = new PairValue($2,$4);}
 	 //| val COLONCOLON val { $$ = new ListValue($1,$3); }  
 	 ;	
