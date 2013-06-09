@@ -1,13 +1,22 @@
 package liwenhaosuper.sjtu.simpl.syntax;
 
 public class BinaryOperation extends Expression{
-	enum BinaryOperator{
+	public enum BinaryOperator{
 		plus, minus, times, devide, biggerThan, lessThan, equal, and, or
 	}
 	
 	Expression e1;
 	Expression e2;
 	BinaryOperator op;
+	
+	public BinaryOperation(){
+		
+	}
+	public BinaryOperation(Expression ea,Expression eb,BinaryOperator o){
+		this.e1 = ea;
+		this.e2 = eb;
+		this.op = o;
+	}
 	
 	public String toString(){
 		String operator = "";

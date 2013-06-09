@@ -1,4 +1,4 @@
-// Output created by jacc on Tue Jun 04 13:06:30 CST 2013
+// Output created by jacc on Sun Jun 09 20:32:49 CST 2013
 
 package liwenhaosuper.sjtu.simpl.jacc;
 
@@ -31,6 +31,7 @@ interface SimPLTokens {
     int UNIT = 25;
     int WHILE = 26;
     int error = 27;
+    // '$' (code=36)
     // '(' (code=40)
     // ')' (code=41)
     // '*' (code=42)
@@ -42,7 +43,5 @@ interface SimPLTokens {
     // '<' (code=60)
     // '=' (code=61)
     // '>' (code=62)
-    // '[' (code=91)
-    // ']' (code=93)
     // '~' (code=126)
 }

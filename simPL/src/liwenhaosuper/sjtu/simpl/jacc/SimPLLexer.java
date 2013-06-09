@@ -5,34 +5,36 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import liwenhaosuper.sjtu.simpl.syntax.BoolValue;
 import liwenhaosuper.sjtu.simpl.syntax.IntValue;
-import liwenhaosuper.sjtu.simpl.type.Ident;
+import liwenhaosuper.sjtu.simpl.syntax.Variable;
 
 public class SimPLLexer implements SimPLTokens{
 	private int c =  ' ';
 	private int token;
 	private Object yylval;
+	private int line,column;
 	private static final Map<String, Integer> KEYWORDS;
 	private InputStream input;
 	static {
 		KEYWORDS = new HashMap<String, Integer>();
-		KEYWORDS.put("FUN", FUN);
-		KEYWORDS.put("LET", LET);
-		KEYWORDS.put("IN", IN);
-		KEYWORDS.put("END", END);
-		KEYWORDS.put("IF",IF);
-		KEYWORDS.put("THEN",THEN);
-		KEYWORDS.put("ELSE",ELSE);
-		KEYWORDS.put("WHILE",WHILE);
-		KEYWORDS.put("DO",DO);
-		KEYWORDS.put("NIL",NIL);
-		KEYWORDS.put("FST",FST);
-		KEYWORDS.put("SND",SND);
-		KEYWORDS.put("HEAD",HEAD);
-		KEYWORDS.put("TAIL",TAIL);
-		KEYWORDS.put("AND",AND);
-		KEYWORDS.put("OR",OR);
-		KEYWORDS.put("NOT",NOT);
+		KEYWORDS.put("fun", FUN);
+		KEYWORDS.put("let", LET);
+		KEYWORDS.put("in", IN);
+		KEYWORDS.put("end", END);
+		KEYWORDS.put("if",IF);
+		KEYWORDS.put("then",THEN);
+		KEYWORDS.put("else",ELSE);
+		KEYWORDS.put("while",WHILE);
+		KEYWORDS.put("do",DO);
+		KEYWORDS.put("nil",NIL);
+		KEYWORDS.put("fst",FST);
+		KEYWORDS.put("snd",SND);
+		KEYWORDS.put("head",HEAD);
+		KEYWORDS.put("tail",TAIL);
+		KEYWORDS.put("and",AND);
+		KEYWORDS.put("or",OR);
+		KEYWORDS.put("not",NOT);
 	}
 	/** Read a single input character from standard input or from stream.*/
 	private void nextChar() {
@@ -47,17 +49,25 @@ public class SimPLLexer implements SimPLTokens{
   			}
     		try {
       			c = System.in.read();
+      			if(c=='\n'){
+      				column = 0;
+      				line ++;
+      			}else{
+      				column ++;
+      			}
     		} catch (Exception e) {
     			c = (-1);
     		}
   		}
 	}
 	public void error(String msg){
-		System.out.println("Syntax Error! " + msg);
+		System.out.println("Syntax Error! " + msg+". At line:"+line+",column:"+column);
 		System.exit(1);
 	}
 	public SimPLLexer(InputStream in){
 		this.input = in;
+		line = 1;
+		column = 0;
 	}
 	public SimPLLexer(){
 		
@@ -118,16 +128,14 @@ public class SimPLLexer implements SimPLTokens{
                 return token=')';
     		case ';' : nextChar();
                 return token=';';
-    		case '[': nextChar(); 
-    			return token = '[';
-    		case ']': nextChar();
-    			return token = ']';
     		case '~': nextChar(); 
     			return token = '~';
     		case '>':nextChar();
     			return token = '>';
     		case '<':nextChar();
     			return token = '<';
+    		case '=':nextChar();
+    			return token = '=';
     		case ':':{
     			nextChar();
     			if(c=='='){
@@ -137,10 +145,12 @@ public class SimPLLexer implements SimPLTokens{
     				nextChar();
     				return token = COLONCOLON;
     			}
-    			error("Unexpected character: "+c);
+    			error("Unexpected character: "+String.valueOf(c));
     		}
     		case ',': nextChar();
     			return token = ',';
+    		case '$': nextChar();
+    			return token = '$';
     		default:
     			if (Character.isDigit(c)) {
     				int n = 0; 
@@ -161,10 +171,14 @@ public class SimPLLexer implements SimPLTokens{
     				if (KEYWORDS.containsKey(name)) {
     					return token = KEYWORDS.get(name);
     				}
-    				yylval = new Ident(name);
+    				if(name.equals("true")||name.equals("false")){
+    					yylval = new BoolValue(Boolean.parseBoolean(name));
+    					return token = BOOLEAN;
+    				}
+    				yylval = new Variable(name);
     				return token = IDENT;
     			}
-    			error("Unexpected character: "+c);
+    			error("Unexpected character: "+String.valueOf(c));
     		}
       }
     }

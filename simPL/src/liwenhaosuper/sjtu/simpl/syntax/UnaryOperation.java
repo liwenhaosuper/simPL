@@ -1,10 +1,16 @@
 package liwenhaosuper.sjtu.simpl.syntax;
 
 public class UnaryOperation extends Expression{
-	enum UnaryOperator{
+	public enum UnaryOperator{
 		not, negative
 	}
-	
+	public UnaryOperation(){
+		
+	}
+	public UnaryOperation(Expression e,UnaryOperator op){
+		this.e = e;
+		this.op = op;
+	}
 	Expression e;
 	UnaryOperator op;
 
