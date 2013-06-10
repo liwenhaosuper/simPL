@@ -1,5 +1,6 @@
 package liwenhaosuper.sjtu.simpl.syntax;
 
+import liwenhaosuper.sjtu.simpl.runtime.Memory;
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
 import liwenhaosuper.sjtu.simpl.util.Util;
 
@@ -14,10 +15,16 @@ public class Application extends Expression{
 	@Override
 	public Value eval(RunTimeState rst){
 		Value par = param.eval(rst);
-		if(func instanceof AnonymousFunction){
+		if(func instanceof Variable){
+			Integer id = rst.get(((Variable)func).name);
+			Value vfunc = Memory.getInstance().getValue(id);
+			if(vfunc instanceof AnonymousFunction){
+				return ((AnonymousFunction)vfunc).invokeFunc(par, rst);
+			}
+		}else if(func instanceof AnonymousFunction){
 			return ((AnonymousFunction)func).invokeFunc(par, rst);
 		}
-		Util.fatal("Runtime error:"+toString());
+		Util.fatal("Runtime error:"+func.getClass()+",not a function."+ toString());
 		return null;
 	}
 	public String toString(){
