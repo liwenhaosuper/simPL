@@ -25,7 +25,7 @@ public class AnonymousFunction extends Value{
 		Value bd = body.eval(rst);
 		if(bd instanceof AnonymousFunction){
 			//TODO: FIXME
-			Util.log("Nested AnonymousFunction!!!");
+			Util.log("Nested AnonymousFunction is a bug!!!");
 			StateFrame sf = new StateFrame();
 			sf.put(arg.name, addr);
 		}

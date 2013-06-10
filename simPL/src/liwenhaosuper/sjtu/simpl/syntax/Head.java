@@ -15,7 +15,7 @@ public class Head extends Expression{
 		if(val instanceof ListValue){
 			return ((ListValue)val).getHead();
 		}
-		Util.fatal("Runtime Error!"+toString());
+		Util.fatal("Type Error! in "+toString()+": "+e.toString()+" is not a list type");
 		return null;
 	}
 	public String toString(){

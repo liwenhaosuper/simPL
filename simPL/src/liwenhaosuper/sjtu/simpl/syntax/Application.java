@@ -23,8 +23,12 @@ public class Application extends Expression{
 			}
 		}else if(func instanceof AnonymousFunction){
 			return ((AnonymousFunction)func).invokeFunc(par, rst);
-		}
-		Util.fatal("Runtime error:"+func.getClass()+",not a function."+ toString());
+		}else if(func instanceof Application){
+			Value vapp = func.eval(rst);
+			return new Application(vapp,par).eval(rst);
+		}//FIXME: nested application!!!
+		
+		Util.fatal("Type error:"+func+"is not a function."+ toString());
 		return null;
 	}
 	public String toString(){

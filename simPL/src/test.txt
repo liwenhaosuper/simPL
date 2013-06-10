@@ -2,6 +2,7 @@
 1dd
 dd1
 _wd3
+
 #2 value
 123
 12.4
@@ -9,8 +10,16 @@ true
 True
 false
 ()
+
 # list
 
+let x = (1,2) in head x end $
+
+if x = 1 then 2 $
+
+let x = true in 1 $
+
+while true do 0 end $
 
 let f = fun x -> (if x = 1 then 1 else x*( f (x-1)) end ) in (f 4) end$
 
