@@ -1,6 +1,7 @@
 package liwenhaosuper.sjtu.simpl.syntax;
 
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
 import liwenhaosuper.sjtu.simpl.util.Util;
 
 public class IfThenElse extends Expression{
@@ -12,6 +13,10 @@ public class IfThenElse extends Expression{
 		condition = e1;
 		thenClause = e2;
 		elseClause = e3;
+	}
+	@Override
+	public Expression nestedReplace(StateFrame sf){
+		return new IfThenElse(condition.nestedReplace(sf),thenClause.nestedReplace(sf),elseClause.nestedReplace(sf));
 	}
 	@Override
 	public Value eval(RunTimeState rst){

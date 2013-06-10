@@ -1,6 +1,7 @@
 package liwenhaosuper.sjtu.simpl.syntax;
 
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
 import liwenhaosuper.sjtu.simpl.util.Util;
 
 public class First extends Expression{
@@ -19,7 +20,10 @@ public class First extends Expression{
 		Util.fatal("Runtime Error!"+toString());
 		return null;
 	}
-	
+	@Override
+	public Expression nestedReplace(StateFrame sf){
+		return new First(e.nestedReplace(sf));
+	}
 	public String toString(){
 		return "fst " + e.toString();
 	}

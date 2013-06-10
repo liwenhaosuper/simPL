@@ -1,6 +1,7 @@
 package liwenhaosuper.sjtu.simpl.syntax;
 
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
 import liwenhaosuper.sjtu.simpl.util.Util;
 
 public class UnaryOperation extends Expression{
@@ -16,7 +17,10 @@ public class UnaryOperation extends Expression{
 	}
 	Expression e;
 	UnaryOperator op;
-	
+	@Override
+	public Expression nestedReplace(StateFrame sf){
+		return new UnaryOperation(e.nestedReplace(sf),op);
+	}
 	@Override
 	public Value eval(RunTimeState rst){
 		Value v = e.eval(rst);

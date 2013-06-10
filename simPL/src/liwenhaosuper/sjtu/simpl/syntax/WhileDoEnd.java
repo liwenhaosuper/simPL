@@ -1,6 +1,7 @@
 package liwenhaosuper.sjtu.simpl.syntax;
 
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
 import liwenhaosuper.sjtu.simpl.util.Util;
 
 public class WhileDoEnd extends Expression{
@@ -12,11 +13,16 @@ public class WhileDoEnd extends Expression{
 		body = e2;
 	}
 	@Override
+	public Expression nestedReplace(StateFrame sf){
+		return new WhileDoEnd(condition.nestedReplace(sf),body.nestedReplace(sf));
+	}
+	@Override
 	public Value eval(RunTimeState rst){
 		Value condv = condition.eval(rst);
 		if(condv instanceof BoolValue){
 			BoolValue bval = (BoolValue)condv;
 			while (bval.getBool()){
+				body.eval(rst);
 				bval = (BoolValue)condition.eval(rst);
 			}
 			return new Nop();

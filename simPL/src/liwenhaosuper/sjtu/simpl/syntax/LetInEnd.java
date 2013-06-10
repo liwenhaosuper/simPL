@@ -15,6 +15,10 @@ public class LetInEnd extends Expression{
 		this.body = body;
 	}
 	@Override
+	public Expression nestedReplace(StateFrame sf){
+		return new LetInEnd((Variable)x.nestedReplace(sf),definition.nestedReplace(sf),body.nestedReplace(sf));
+	}
+	@Override
 	public Value eval(RunTimeState rst){
 		StateFrame nst = new StateFrame();
 		Integer addr = Memory.getInstance().allocate(definition.eval(rst));

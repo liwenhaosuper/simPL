@@ -2,6 +2,7 @@ package liwenhaosuper.sjtu.simpl.syntax;
 
 import liwenhaosuper.sjtu.simpl.runtime.Memory;
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
 import liwenhaosuper.sjtu.simpl.util.Util;
 
 public class Variable extends Expression{
@@ -10,9 +11,23 @@ public class Variable extends Expression{
 	public Variable(String nm){
 		this.name = nm;
 	}
-	//public void setVal(Value val){
-	//	this.val = val;
-	//}
+	@Override
+	public Expression nestedReplace(StateFrame sf){
+		if(!sf.contains(name)){
+			return new Variable(name); 
+		}
+		Integer addr = sf.get(name);
+		if(!Memory.getInstance().contains(addr)){
+			return new Variable(name);
+		}
+		Value v = Memory.getInstance().getValue(addr);
+		if(v == null || v instanceof AnonymousFunction){
+			return new Variable(name);
+		}
+		else{
+			return v;
+		}
+	}
 	@Override
 	public Value eval(RunTimeState rst){
 		Integer id = rst.get(name);

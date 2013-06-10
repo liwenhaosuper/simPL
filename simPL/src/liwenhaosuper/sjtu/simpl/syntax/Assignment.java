@@ -2,6 +2,7 @@ package liwenhaosuper.sjtu.simpl.syntax;
 
 import liwenhaosuper.sjtu.simpl.runtime.Memory;
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
 import liwenhaosuper.sjtu.simpl.util.Util;
 
 public class Assignment extends Expression{
@@ -12,7 +13,11 @@ public class Assignment extends Expression{
 		this.var = var;
 		this.val = val;
 	}
-	
+	@Override
+	public Expression nestedReplace(StateFrame sf){
+		Assignment assign = new Assignment(var.nestedReplace(sf),val.nestedReplace(sf));
+		return assign;
+	}
 	@Override
 	public Value eval(RunTimeState rst){
 		Value va = val.eval(rst);

@@ -2,6 +2,7 @@ package liwenhaosuper.sjtu.simpl.syntax;
 
 import liwenhaosuper.sjtu.simpl.runtime.Memory;
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
 import liwenhaosuper.sjtu.simpl.util.Util;
 
 public class Application extends Expression{
@@ -11,6 +12,11 @@ public class Application extends Expression{
 	public Application(Expression e1,Expression e2){
 		this.func = e1;
 		this.param = e2;
+	}
+	@Override
+	public Expression nestedReplace(StateFrame sf){
+		Application app = new Application(func.nestedReplace(sf),param.nestedReplace(sf));
+		return app;
 	}
 	@Override
 	public Value eval(RunTimeState rst){

@@ -17,6 +17,11 @@ public class AnonymousFunction extends Value{
 	public Value eval(RunTimeState rst){
 		return this;
 	}
+	@Override
+	public Expression nestedReplace(StateFrame sf){
+		AnonymousFunction func = new AnonymousFunction((Variable)arg.nestedReplace(sf),body.nestedReplace(sf));
+		return func;
+	}
 	public Value invokeFunc(Value val,RunTimeState rst){
 		StateFrame nst = new StateFrame();
 		int addr = Memory.getInstance().allocate(val);
@@ -25,9 +30,10 @@ public class AnonymousFunction extends Value{
 		Value bd = body.eval(rst);
 		if(bd instanceof AnonymousFunction){
 			//TODO: FIXME
-			Util.log("Nested AnonymousFunction is a bug!!!");
+			//Util.log("Nested AnonymousFunction is a bug!!!");
 			StateFrame sf = new StateFrame();
 			sf.put(arg.name, addr);
+			bd = (Value)bd.nestedReplace(sf);
 		}
 		rst.popout();
 		return bd;

@@ -1,6 +1,7 @@
 package liwenhaosuper.sjtu.simpl.syntax;
 
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
 import liwenhaosuper.sjtu.simpl.util.Util;
 
 public class Tail extends Expression{
@@ -8,6 +9,10 @@ public class Tail extends Expression{
 	
 	public Tail(Expression e){
 		this.e = e;
+	}
+	@Override
+	public Expression nestedReplace(StateFrame sf){
+		return new Tail(e.nestedReplace(sf));
 	}
 	@Override
 	public Value eval(RunTimeState rst){

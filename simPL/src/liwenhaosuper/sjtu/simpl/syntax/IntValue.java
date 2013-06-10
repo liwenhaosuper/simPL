@@ -1,6 +1,7 @@
 package liwenhaosuper.sjtu.simpl.syntax;
 
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
 
 public class IntValue extends Value{
 	boolean isUndef;
@@ -12,6 +13,7 @@ public class IntValue extends Value{
 	public int getInt(){
 		return value;
 	}
+
 	@Override
 	public Value eval(RunTimeState rst){
 		return this;

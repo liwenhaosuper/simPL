@@ -1,6 +1,7 @@
 package liwenhaosuper.sjtu.simpl.syntax;
 
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
 
 public class List extends Expression{
 	Expression head;
@@ -9,6 +10,10 @@ public class List extends Expression{
 	public List(Expression h,Expression t){
 		this.head = h;
 		this.tail = t;
+	}
+	@Override
+	public Expression nestedReplace(StateFrame sf){
+		return new List(head.nestedReplace(sf),tail.nestedReplace(sf));
 	}
 	@Override
 	public Value eval(RunTimeState rst){

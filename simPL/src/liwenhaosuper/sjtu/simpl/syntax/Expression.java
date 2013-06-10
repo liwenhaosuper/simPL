@@ -1,15 +1,24 @@
 package liwenhaosuper.sjtu.simpl.syntax;
 
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
+import liwenhaosuper.sjtu.simpl.util.Util;
 
 public class Expression{
 
 	public Value eval(RunTimeState rst){
-		System.out.println("Expression value will be null!");
+		Util.fatal("Subclass should override funciton eval!");
 		return null;
 	}
-	/*public void setRst(RunTimeState rst){
-		this.rst = rst;
+	/**
+	 * replace variable to value,this is useful for nested expressions
+	 * according to my observation, the return object should be a copy
+	 * of the origin one, not a reference! 
+	 * @param sf
+	 * @return
+	 */
+	public Expression nestedReplace(StateFrame sf){
+		//Util.fatal("Subclass should override funciton nestedReplace!");
+		return this;
 	}
-	protected RunTimeState rst;*/
 }

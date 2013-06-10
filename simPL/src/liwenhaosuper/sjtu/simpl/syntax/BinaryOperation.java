@@ -1,6 +1,7 @@
 package liwenhaosuper.sjtu.simpl.syntax;
 
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
 import liwenhaosuper.sjtu.simpl.util.Util;
 
 public class BinaryOperation extends Expression{
@@ -19,6 +20,12 @@ public class BinaryOperation extends Expression{
 		this.e1 = ea;
 		this.e2 = eb;
 		this.op = o;
+	}
+	@Override
+	public Expression nestedReplace(StateFrame sf){
+		//FIXME: should op be copied either?
+		BinaryOperation bo = new BinaryOperation(e1.nestedReplace(sf),e2.nestedReplace(sf),op);
+		return bo;
 	}
 	@Override
 	public Value eval(RunTimeState rst){
