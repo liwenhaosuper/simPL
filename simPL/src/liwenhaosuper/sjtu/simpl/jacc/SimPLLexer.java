@@ -151,7 +151,7 @@ public class SimPLLexer implements SimPLTokens{
     		case ',': nextChar();
     			return token = ',';
     		case '$': 
-    			System.out.println("getting result:");
+    			//System.out.println("getting result:");
     			//return token = '$';
     			return token = ENDINPUT;
     		default:

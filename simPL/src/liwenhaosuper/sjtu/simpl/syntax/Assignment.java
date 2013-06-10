@@ -1,12 +1,27 @@
 package liwenhaosuper.sjtu.simpl.syntax;
 
+import liwenhaosuper.sjtu.simpl.runtime.Memory;
+import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.util.Util;
+
 public class Assignment extends Expression{
 	Expression var;
 	Expression val;
 	
-	public Assignment(Expression val,Expression var){
+	public Assignment(Expression var,Expression val){
 		this.var = var;
 		this.val = val;
+	}
+	
+	@Override
+	public Value eval(RunTimeState rst){
+		Value va = val.eval(rst);
+		Expression exp = var;
+		if(!(var instanceof Variable)){
+			Util.log("Assignment error: no support for nested/indirect assignment");
+		}
+		Memory.getInstance().set(rst.get(((Variable)exp).name), va);
+		return new Nop();
 	}
 	
 	public String toString(){

@@ -26,7 +26,7 @@
 %left ';' 
 %right ALLOW
 %right COLONEQUAL
-%left COLONCOLON
+%right COLONCOLON
 %left AND OR
 %left  '=' '>' '<'
 %left  '+' '-'
@@ -45,22 +45,23 @@
 
 %{
 import liwenhaosuper.sjtu.simpl.syntax.*;
+import liwenhaosuper.sjtu.simpl.runtime.*;
 %} 
 
 //grammer
 %%
 
-prog : expr { System.out.println("Start");app = $1;System.out.println(app);System.out.println("End");}
+prog : expr { app = $1;}
      ;
 
-expr : IDENT			{ System.out.println("Ident:"+$1);$$ = $1;}
-	 | val				{ System.out.println("Val:"+$1);$$ = $1; }
-	 | expr COLONCOLON expr { System.out.println("List:"+$1+","+$2);$$ = new List($1,$3);	}
- 	 | '(' expr ',' expr ')' { System.out.println("Pair:"+$2+","+$4);$$ = new Pair($2,$4); }
+expr : IDENT			{ $$ = $1;}
+	 | val				{ $$ = $1; }
+	 | expr COLONCOLON expr { $$ = new List($1,$3);	}
+ 	 | '(' expr ',' expr ')' { $$ = new Pair($2,$4); }
  	 | '(' expr expr ')'  { $$ = new Application($2,$3); }
  	 
  	 //binary operation: plus, minus, times, devide, biggerThan, lessThan, equal, and, or
- 	 | expr '+' expr { System.out.println("Add:"+$1+","+$3);$$ = new BinaryOperation($1,$3,BinaryOperation.BinaryOperator.plus);} 
+ 	 | expr '+' expr { $$ = new BinaryOperation($1,$3,BinaryOperation.BinaryOperator.plus);} 
  	 | expr '-' expr { $$ = new BinaryOperation($1,$3,BinaryOperation.BinaryOperator.minus);} 
  	 | expr '*' expr { $$ = new BinaryOperation($1,$3,BinaryOperation.BinaryOperator.times); } 
  	 | expr '/' expr { $$ = new BinaryOperation($1,$3,BinaryOperation.BinaryOperator.devide); } 
@@ -112,4 +113,6 @@ val  : INTEGER	{ $$ = $1; } /*new IntValue(Integer.parseInt($1))*/
 		lexer.nextToken();
 		SimPLParser parser = new SimPLParser(lexer);
 		parser.parse();
+		RunTimeState state = new RunTimeState();
+		System.out.println(parser.getApp().eval(state));
 	}

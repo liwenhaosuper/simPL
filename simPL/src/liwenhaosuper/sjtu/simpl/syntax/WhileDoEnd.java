@@ -1,5 +1,8 @@
 package liwenhaosuper.sjtu.simpl.syntax;
 
+import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.util.Util;
+
 public class WhileDoEnd extends Expression{
 	Expression condition;
 	Expression body;
@@ -8,7 +11,19 @@ public class WhileDoEnd extends Expression{
 		condition = e1;
 		body = e2;
 	}
-	
+	@Override
+	public Value eval(RunTimeState rst){
+		Value condv = condition.eval(rst);
+		if(condv instanceof BoolValue){
+			BoolValue bval = (BoolValue)condv;
+			while (bval.getBool()){
+				bval = (BoolValue)condition.eval(rst);
+			}
+			return new Nop();
+		}
+		Util.fatal("Runtime Error!"+toString());
+		return null;
+	}
 	public String toString(){
 		return "while " + condition.toString() + " do " + body.toString() + " end";
 	}

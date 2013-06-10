@@ -1,5 +1,9 @@
 package liwenhaosuper.sjtu.simpl.syntax;
 
+import liwenhaosuper.sjtu.simpl.runtime.Memory;
+import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
+
 public class LetInEnd extends Expression{
 	Variable x;
 	Expression definition;
@@ -10,8 +14,18 @@ public class LetInEnd extends Expression{
 		this.definition = def;
 		this.body = body;
 	}
-	
+	@Override
+	public Value eval(RunTimeState rst){
+		StateFrame nst = new StateFrame();
+		Integer addr = Memory.getInstance().allocate(definition.eval(rst));
+		nst.put(x.name, addr);
+		rst.popin(nst);
+		Value res = body.eval(rst);
+		rst.popout();
+		return res;
+	}
 	public String toString(){
+		//return eval().toString();
 		return "let " + x.toString() + " = " + definition.toString() + " in " + body.toString() + " end";
 	}
 }

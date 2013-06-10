@@ -1,8 +1,9 @@
-// Output created by jacc on Sun Jun 09 23:28:53 CST 2013
+// Output created by jacc on Mon Jun 10 15:48:20 CST 2013
 
 package liwenhaosuper.sjtu.simpl.jacc;
 
 import liwenhaosuper.sjtu.simpl.syntax.*;
+import liwenhaosuper.sjtu.simpl.runtime.*;
 
 class SimPLParser implements SimPLTokens {
     private int yyss = 100;
@@ -2067,15 +2068,17 @@ class SimPLParser implements SimPLTokens {
 
     private int yys44() {
         switch (yytok) {
+            case FALSE:
             case ALLOW:
+            case '$':
             case TRUE:
             case error:
             case UNIT:
-            case '$':
-            case FALSE:
                 return 155;
             case AND:
                 return 19;
+            case COLONCOLON:
+                return 20;
             case OR:
                 return 22;
             case '*':
@@ -2914,31 +2917,31 @@ class SimPLParser implements SimPLTokens {
     }
 
     private int yyr1() { // prog : expr
-        { System.out.println("Start");app = ((Expression)yysv[yysp-1]);System.out.println(app);System.out.println("End");}
+        { app = ((Expression)yysv[yysp-1]);}
         yysv[yysp-=1] = yyrv;
         return 1;
     }
 
     private int yyr2() { // expr : IDENT
-        { System.out.println("Ident:"+((Variable)yysv[yysp-1]));yyrv = ((Variable)yysv[yysp-1]);}
+        { yyrv = ((Variable)yysv[yysp-1]);}
         yysv[yysp-=1] = yyrv;
         return yypexpr();
     }
 
     private int yyr3() { // expr : val
-        { System.out.println("Val:"+((Value)yysv[yysp-1]));yyrv = ((Value)yysv[yysp-1]); }
+        { yyrv = ((Value)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return yypexpr();
     }
 
     private int yyr4() { // expr : expr COLONCOLON expr
-        { System.out.println("List:"+((Expression)yysv[yysp-3])+","+yysv[yysp-2]);yyrv = new List(((Expression)yysv[yysp-3]),((Expression)yysv[yysp-1]));   }
+        { yyrv = new List(((Expression)yysv[yysp-3]),((Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
     private int yyr5() { // expr : '(' expr ',' expr ')'
-        { System.out.println("Pair:"+((Expression)yysv[yysp-4])+","+((Expression)yysv[yysp-2]));yyrv = new Pair(((Expression)yysv[yysp-4]),((Expression)yysv[yysp-2])); }
+        { yyrv = new Pair(((Expression)yysv[yysp-4]),((Expression)yysv[yysp-2])); }
         yysv[yysp-=5] = yyrv;
         return yypexpr();
     }
@@ -2950,7 +2953,7 @@ class SimPLParser implements SimPLTokens {
     }
 
     private int yyr7() { // expr : expr '+' expr
-        { System.out.println("Add:"+((Expression)yysv[yysp-3])+","+((Expression)yysv[yysp-1]));yyrv = new BinaryOperation(((Expression)yysv[yysp-3]),((Expression)yysv[yysp-1]),BinaryOperation.BinaryOperator.plus);}
+        { yyrv = new BinaryOperation(((Expression)yysv[yysp-3]),((Expression)yysv[yysp-1]),BinaryOperation.BinaryOperator.plus);}
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
@@ -3159,6 +3162,8 @@ class SimPLParser implements SimPLTokens {
                 lexer.nextToken();
                 SimPLParser parser = new SimPLParser(lexer);
                 parser.parse();
+                RunTimeState state = new RunTimeState();
+                System.out.println(parser.getApp().eval(state));
         }
 
 }
