@@ -119,3 +119,16 @@ let
 			(f (f 3)) + x 
 		end 
 end$
+
+#
+let plus = fun a->fun b->a + b in ((plus 10) 8) end$
+
+#
+let x = 1 in
+let y = 2 in
+let z = 3 in
+x + y + z end end end$
+
+#
+let x = 1 in fst (x, (x := x + 1;())) end$
+
