@@ -2,6 +2,7 @@ package liwenhaosuper.sjtu.simpl.syntax;
 
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
 import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
+import liwenhaosuper.sjtu.simpl.util.Util;
 
 public class Sequence extends Expression{
 	Expression e1;
@@ -17,7 +18,9 @@ public class Sequence extends Expression{
 	}
 	@Override
 	public Value eval(RunTimeState rst){
-		e1.eval(rst);
+		if(!(e1.eval(rst) instanceof Nop)){
+			Util.fatal("Type Error!"+e1.toString()+": it should be a unit type!");
+		}
 		return e2.eval(rst);
 	}
 	

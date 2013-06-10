@@ -22,7 +22,9 @@ public class WhileDoEnd extends Expression{
 		if(condv instanceof BoolValue){
 			BoolValue bval = (BoolValue)condv;
 			while (bval.getBool()){
-				body.eval(rst);
+				if(!(body.eval(rst) instanceof Nop)){
+					Util.fatal("Type Error!"+body.toString()+" should be a unit type!");
+				}
 				bval = (BoolValue)condition.eval(rst);
 			}
 			return new Nop();

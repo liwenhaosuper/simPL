@@ -30,10 +30,11 @@ public class AnonymousFunction extends Value{
 		Value bd = body.eval(rst);
 		if(bd instanceof AnonymousFunction){
 			//TODO: FIXME
-			//Util.log("Nested AnonymousFunction is a bug!!!");
+			Util.log("Nested AnonymousFunction is a bug!!!"+bd);
 			StateFrame sf = new StateFrame();
 			sf.put(arg.name, addr);
 			bd = (Value)bd.nestedReplace(sf);
+			Util.log("after:"+bd);
 		}
 		rst.popout();
 		return bd;

@@ -21,6 +21,7 @@ public class Application extends Expression{
 	@Override
 	public Value eval(RunTimeState rst){
 		Value par = param.eval(rst);
+		Util.log("app:"+toString());
 		if(func instanceof Variable){
 			Integer id = rst.get(((Variable)func).name);
 			Value vfunc = Memory.getInstance().getValue(id);

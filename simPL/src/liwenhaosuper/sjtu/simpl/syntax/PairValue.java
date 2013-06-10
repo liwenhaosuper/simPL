@@ -13,9 +13,6 @@ public class PairValue extends Value{
 		if(e1==null||e2==null){
 			Util.fatal("Runtime Error:PairValue is null!");
 		}
-		if (e1.getClass()!=e2.getClass()){
-			Util.fatal("Type Error: PairValue:"+toString());
-		}
 	}
 	@Override
 	public Value eval(RunTimeState rst){
