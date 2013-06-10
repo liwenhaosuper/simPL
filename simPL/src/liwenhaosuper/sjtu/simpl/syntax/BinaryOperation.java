@@ -35,31 +35,31 @@ public class BinaryOperation extends Expression{
 			case devide:
 				return new IntValue(((IntValue)a).getInt()/((IntValue)b).getInt());
 			case biggerThan:
-				if(((IntValue)a).getInt()> ((IntValue)a).getInt()){
+				if(((IntValue)a).getInt()> ((IntValue)b).getInt()){
 					return new BoolValue(true);
 				}else{
 					return new BoolValue(false);
 				}
 			case lessThan:
-				if(((IntValue)a).getInt()< ((IntValue)a).getInt()){
+				if(((IntValue)a).getInt()< ((IntValue)b).getInt()){
 					return new BoolValue(true);
 				}else{
 					return new BoolValue(false);
 				}
 			case equal:
-				if(((IntValue)a).getInt()==((IntValue)a).getInt()){
+				if(((IntValue)a).getInt()==((IntValue)b).getInt()){
 					return new BoolValue(true);
 				}else{
 					return new BoolValue(false);
 				}
 			case and:
-				if((((IntValue)a).getInt()&((IntValue)a).getInt())!=0){
+				if((((IntValue)a).getInt()&((IntValue)b).getInt())!=0){
 					return new BoolValue(true);
 				}else{
 					return new BoolValue(false);
 				}
 			case or:
-				if((((IntValue)a).getInt()|((IntValue)a).getInt())!=0){
+				if((((IntValue)a).getInt()|((IntValue)b).getInt())!=0){
 					return new BoolValue(true);
 				}else{
 					return new BoolValue(false);
