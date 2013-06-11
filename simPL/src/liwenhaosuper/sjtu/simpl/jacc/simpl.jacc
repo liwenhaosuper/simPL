@@ -162,8 +162,7 @@ val  : INTEGER	{ $$ = $1; } /*new IntValue(Integer.parseInt($1))*/
 			}catch(SimPLFatalException e){
 			 	Util.log(e.getMessage());
 			}catch(StackOverflowError ee){
-				Util.log("StackOverflowError! Currently simPL doesn't support recursive nested anonymous function.");
-				Util.log("Users should rewrite their code to avoid this problem.");
+				Util.log("StackOverflowError! Currently simPL doesn't support recursive nested anonymous function. Users should rewrite their code to avoid this problem.");
 			}catch(SimPLExitException eee){
 				//Util.log("End of input");
 				return;

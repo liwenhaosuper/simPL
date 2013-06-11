@@ -77,8 +77,8 @@ public class SimPLLexer implements SimPLTokens{
   		}
 	}
 	public void error(String msg) throws SimPLFatalException{
-		Util.log("Syntax Error! " + msg+". At line:"+line+",column:"+column);
-		throw new SimPLFatalException(msg);
+		//Util.log("Syntax Error! " + msg+". At line:"+line+",column:"+column);
+		throw new SimPLFatalException("Syntax Error! " + msg+". At line:"+line+",column:"+column);
 	}
 	public SimPLLexer(InputStream in){
 		this.input = in;

@@ -1,4 +1,4 @@
-// Output created by jacc on Tue Jun 11 12:01:07 CST 2013
+// Output created by jacc on Tue Jun 11 12:59:32 CST 2013
 
 package liwenhaosuper.sjtu.simpl.jacc;
 
@@ -3211,8 +3211,7 @@ class SimPLParser implements SimPLTokens {
                         }catch(SimPLFatalException e){
                                 Util.log(e.getMessage());
                         }catch(StackOverflowError ee){
-                                Util.log("StackOverflowError! Currently simPL doesn't support recursive nested anonymous function.");
-                                Util.log("Users should rewrite their code to avoid this problem.");
+                                Util.log("StackOverflowError! Currently simPL doesn't support recursive nested anonymous function. Users should rewrite their code to avoid this problem.");
                         }catch(SimPLExitException eee){
                                 //Util.log("End of input");
                                 return;

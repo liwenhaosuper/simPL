@@ -1,1 +1,38 @@
-A simple programming language intepreter using Jacc
+SimPL: A simple programming language interpreter using Jacc
+
+Student Name: Li Wenhao    Zhou Tianyu
+
+Feedback email
+	liwenhaosuper@gmail.com
+
+Our code repository is github
+	https://github.com/liwenhaosuper/simPL
+
+File
+	Readme.txt: documents about simPL
+	simPL.jar: binary jar file for testing
+	simPL/: source code of simPL
+
+Usage
+	We provide you with a binary file, named simPL.jar for testing.
+	Interactive way
+		Open a command line and type "java -jar simPL.jar" to start an interactive test.
+	Batch test
+		Open a command lien and type "java -jar simPL.jar -f test.spl" to start a batch test, the test cases should be included in test.spl and the output result locates in test.rst of the same directory.
+
+Test
+	We have include a test.spl file as a test case file for our test
+		test.spl: a full set of test cases
+		queen.spl: eight queen problem implementation
+	For the Queen problem test, it is also included in the test.spl file and locates in the last one among all the cases.
+	
+Limitation
+	Currently we don't support recursive nested anonymous function very well due to implementation issue, which may result in a stackoverflow error. However, we think users should rewrite their code to avoid this kind of usage, for instance, using a progressive way. We will solve this issue later.
+	
+Implementation Detail
+	Parser:	We use Jacc as a compiler parser. The parser code lies in simPL/src/liwenhaosuper/sjtu/simpl/jacc/simpl.jacc.
+	Lexer: We implement the lexical analysis in simPL/src/liwenhaosuper/sjtu/simpl/jacc/SimPLLexer.java
+	Memory Model and scoping related code lie in simPL/src/liwenhaosuper/sjtu/simpl/runtime
+	Type system, syntax analysis and runtime supported code lie in simPL/src/liwenhaosuper/sjtu/simpl/syntax
+
+	
