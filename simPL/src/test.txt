@@ -121,6 +121,7 @@ let
 end$
 
 #
+<<<<<<< HEAD
 let abc = fun x -> 
 	if x < 0 
 	then	x
@@ -129,3 +130,16 @@ let abc = fun x ->
 in
 	(abc 10000)
 end$
+=======
+let plus = fun a->fun b->a + b in ((plus 10) 8) end$
+
+#
+let x = 1 in
+let y = 2 in
+let z = 3 in
+x + y + z end end end$
+
+#
+let x = 1 in fst (x, (x := x + 1;())) end$
+
+>>>>>>> 8b717500be62e801a5560465d06bc2c4847a8c5e
