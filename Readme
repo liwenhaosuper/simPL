@@ -1,17 +1,18 @@
-SimPL: A simple programming language interpreter using Jacc
+SimPL: A simple functional programming language interpreter using Jacc
 
-Student Name: Li Wenhao    Zhou Tianyu
+Group Member: Li Wenhao    Zhou Tianyu
 
 Feedback email
 	liwenhaosuper@gmail.com
 
-Our code repository is github
+Our code repository is in github
 	https://github.com/liwenhaosuper/simPL
 
 File
 	Readme.txt: documents about simPL
 	simPL.jar: binary jar file for testing
 	simPL/: source code of simPL
+	test.spl, queen.spl: test cases
 
 Usage
 	We provide you with a binary file, named simPL.jar for testing.
@@ -21,13 +22,14 @@ Usage
 		Open a command lien and type "java -jar simPL.jar -f test.spl" to start a batch test, the test cases should be included in test.spl and the output result locates in test.rst of the same directory.
 
 Test
-	We have include a test.spl file as a test case file for our test
+	We have included a test.spl file as a test case file for our test
 		test.spl: a full set of test cases
 		queen.spl: eight queen problem implementation
 	For the Queen problem test, it is also included in the test.spl file and locates in the last one among all the cases.
-	
-Limitation
-	Currently we don't support recursive nested anonymous function very well due to implementation issue, which may result in a stackoverflow error. However, we think users should rewrite their code to avoid this kind of usage, for instance, using a progressive way. We will solve this issue later.
+
+Build from source code
+	We use eclipse as our IDE and you can directly import into eclipse to build from source code.
+	If you change the simpl.jacc file, you would need a jacc parser to generate the corresponding codes, i.e., use command "jacc simpl.jacc" if you have included jacc.jar or jacc.bat in your path. Surely you will see several errors in SimPLParser.java, here you need to add code "throws SimPLFatalException, SimPLExitException" in the declaration of function parse().
 	
 Implementation Detail
 	Parser:	We use Jacc as a compiler parser. The parser code lies in simPL/src/liwenhaosuper/sjtu/simpl/jacc/simpl.jacc.
@@ -35,4 +37,6 @@ Implementation Detail
 	Memory Model and scoping related code lie in simPL/src/liwenhaosuper/sjtu/simpl/runtime
 	Type system, syntax analysis and runtime supported code lie in simPL/src/liwenhaosuper/sjtu/simpl/syntax
 
+Problmes
+	The biggest problem we encountered is how to use Jacc, since there are few references or documents. However, we found Jacc is built on Yacc, so we finally refer to Yacc manual to solve our problem.
 	

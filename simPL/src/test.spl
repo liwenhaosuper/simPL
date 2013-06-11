@@ -114,6 +114,15 @@ in
 	(abc 10)
 end$
 
+let x = 1 in
+let y = 2 in
+let z = 3 in
+x + y + z end end end$
+
+let x = 1 in fst (x, (x := x + 1;())) end$
+
+let plus = fun a->fun b->a + b in ((plus 10) 8) end$
+
 
 let 
 	check = fun q -> fun p -> 
@@ -169,25 +178,3 @@ let
 end
 end
 $
-
-
-let mod = fun x->fun y->x-x/y
-in 
-	let 
-		gcd = fun x-> fun y->
-			if((mod x) y) = 0
-			then y
-			else ((gcd y) ((mod x) y))
-			end
-		in ((gcd 34) 30)
-	end
-end$
-
-let abc = fun x -> 
-	if x < 0 
-	then	x
-	else	(abc x-2)+(abc x-1) 
-	end
-in
-	(abc 50000)
-end$

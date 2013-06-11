@@ -78,7 +78,7 @@ let m = fun x-> x+1 in let f = fun x->fun y->x+y in ((f 2) (m 1)) end end$
 
 let m = fun x-> x+1 in let f = fun x->fun y->x+y in ((f ( m 5) ) (m 1)) end end$
 
-/*
+
 let mod = fun x->fun y->x-x/y*y
 in 
 	let 
@@ -90,7 +90,7 @@ in
 		in ((gcd 34986) 3087)
 	end
 end$
-*/
+
 let f = fun x -> (if x = 1 then 1 else ( f (x-1))*x end ) in (f 4) end$
 
 let f = fun x->x in let x = 2 in (f 3) + x end end$
@@ -113,6 +113,15 @@ let abc = fun x ->
 in
 	(abc 10)
 end$
+
+let x = 1 in
+let y = 2 in
+let z = 3 in
+x + y + z end end end$
+
+let x = 1 in fst (x, (x := x + 1;())) end$
+
+let plus = fun a->fun b->a + b in ((plus 10) 8) end$
 
 
 let 

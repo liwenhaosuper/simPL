@@ -37,14 +37,17 @@ public class BinaryOperation extends Expression{
 			if(a instanceof IntValue && b instanceof IntValue){
 				return new IntValue(((IntValue)a).getInt()+((IntValue)b).getInt());
 			}
+			Util.fatal("Type Error:"+toString0()+";"+a+":"+b);
 		case minus:
 			if(a instanceof IntValue && b instanceof IntValue){
 				return new IntValue(((IntValue)a).getInt()-((IntValue)b).getInt());
 			}
+			Util.fatal("Type Error:"+toString0()+";"+a+":"+b);
 		case times:
 			if(a instanceof IntValue && b instanceof IntValue){
 				return new IntValue(((IntValue)a).getInt()*((IntValue)b).getInt());
 			}
+			Util.fatal("Type Error:"+toString0()+";"+a+":"+b);
 		case devide:
 			if(a instanceof IntValue && b instanceof IntValue){
 				if(((IntValue)b).getInt()==0){
@@ -52,6 +55,7 @@ public class BinaryOperation extends Expression{
 				}
 				return new IntValue(((IntValue)a).getInt()/((IntValue)b).getInt());
 			}
+			Util.fatal("Type Error:"+toString0()+";"+a+":"+b);
 		case biggerThan:
 			if(a instanceof IntValue && b instanceof IntValue){
 				if(((IntValue)a).getInt()> ((IntValue)b).getInt()){
@@ -60,6 +64,7 @@ public class BinaryOperation extends Expression{
 					return new BoolValue(false);
 				}
 			}
+			Util.fatal("Type Error:"+toString0()+";"+a+":"+b);
 		case lessThan:
 			if(a instanceof IntValue && b instanceof IntValue){
 				if(((IntValue)a).getInt()< ((IntValue)b).getInt()){
@@ -68,6 +73,7 @@ public class BinaryOperation extends Expression{
 					return new BoolValue(false);
 				}
 			}
+			Util.fatal("Type Error:"+toString0()+";"+a+":"+b);
 		case equal:
 			if(a instanceof IntValue && b instanceof IntValue){
 				if(((IntValue)a).getInt()==((IntValue)b).getInt()){
@@ -91,6 +97,7 @@ public class BinaryOperation extends Expression{
 			}else if(a instanceof BoolValue && b instanceof BoolValue){
 				return new BoolValue(((BoolValue)a).getBool()&&((BoolValue)b).getBool());
 			}
+			Util.fatal("Type Error:"+toString0()+";"+a+":"+b);
 		case or:
 			if(a instanceof IntValue && b instanceof IntValue){
 				if((((IntValue)a).getInt()|((IntValue)b).getInt())!=0){
@@ -101,6 +108,7 @@ public class BinaryOperation extends Expression{
 			}else if(a instanceof BoolValue && b instanceof BoolValue){
 				return new BoolValue(((BoolValue)a).getBool()||((BoolValue)b).getBool());
 			}
+			Util.fatal("Type Error:"+toString0()+";"+a+":"+b);
 		}
 		Util.fatal("Type Error:"+toString0()+";"+a+":"+a.getClass()+";"+b+":"+b.getClass());
 		return null;

@@ -7,7 +7,7 @@ import liwenhaosuper.sjtu.simpl.util.Util;
 public class Expression{
 
 	public Value eval() throws SimPLFatalException{
-		Util.fatal("Subclass should override funciton eval!");
+		Util.fatal("Subclass should override funciton eval!"+getClass());
 		return null;
 	}
 	/**

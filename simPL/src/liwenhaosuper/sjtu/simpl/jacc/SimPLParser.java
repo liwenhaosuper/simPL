@@ -1,4 +1,4 @@
-// Output created by jacc on Tue Jun 11 16:49:05 CST 2013
+// Output created by jacc on Tue Jun 11 17:11:48 CST 2013
 
 package liwenhaosuper.sjtu.simpl.jacc;
 
@@ -406,8 +406,16 @@ class SimPLParser implements SimPLTokens {
                     yyst[yysp] = 29;
                     yysv[yysp] = (lexer.getSemantic()
                                  );
-                    yytok = (lexer.nextToken()
+				try {
+					yytok = (lexer.nextToken()
                             );
+				} catch (SimPLFatalException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SimPLExitException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
@@ -3203,8 +3211,8 @@ class SimPLParser implements SimPLTokens {
                         }catch(SimPLFatalException e){
                                 Util.log(e.getMessage());
                         }catch(StackOverflowError ee){
-                                Util.log("StackOverflowError! Currently simPL doesn't support recursive nested anonymous function. Users should rewrite their code to avoid this problem.");
-                                ee.printStackTrace();
+                                Util.log("StackOverflowError!");
+                                //ee.printStackTrace();
                         }catch(SimPLExitException eee){
                                 //Util.log("End of input");
                                 return;

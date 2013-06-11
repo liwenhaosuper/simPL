@@ -104,7 +104,7 @@ public class SimPLLexer implements SimPLTokens{
     	boolean inComment = false;
     	for (;;) {
     		while(inComment){
-    			while (c != '*' && c != -1 && c != '/') {
+    			while (c != '*' && c != -1 && c != '/'&&c!='$') {
     				nextChar();
     			}
     			if (c == '*') {
@@ -124,7 +124,7 @@ public class SimPLLexer implements SimPLTokens{
     				}
     				continue;
     			}
-    			if(c==-1&&inComment){
+    			if((c=='$'||c==-1)&&inComment){
     				throw new SimPLFatalException("Syntax Error! At line:"+line+",column:"+column);
     			}
     		}
