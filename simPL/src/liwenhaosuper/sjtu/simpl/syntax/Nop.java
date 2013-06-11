@@ -9,4 +9,11 @@ public class Nop extends Value{
 	public Value eval(RunTimeState rst){
 		return this;
 	}
+	@Override
+	public boolean equals(Object obj){
+		if(obj instanceof Nop){
+			return true;
+		}
+		return false;
+	}
 }

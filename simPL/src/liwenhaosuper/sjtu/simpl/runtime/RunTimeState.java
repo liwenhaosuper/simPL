@@ -2,7 +2,6 @@ package liwenhaosuper.sjtu.simpl.runtime;
 
 public class RunTimeState {
 	private StateFrame stFrame = null;
-	
 	private StateFrame snapshot = null;
 	
 	public RunTimeState()

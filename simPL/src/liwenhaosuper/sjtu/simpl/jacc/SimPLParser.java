@@ -1,9 +1,11 @@
-// Output created by jacc on Mon Jun 10 15:48:20 CST 2013
+// Output created by jacc on Tue Jun 11 12:01:07 CST 2013
 
 package liwenhaosuper.sjtu.simpl.jacc;
 
 import liwenhaosuper.sjtu.simpl.syntax.*;
 import liwenhaosuper.sjtu.simpl.runtime.*;
+import liwenhaosuper.sjtu.simpl.util.*;
+import java.io.*;
 
 class SimPLParser implements SimPLTokens {
     private int yyss = 100;
@@ -14,7 +16,7 @@ class SimPLParser implements SimPLTokens {
     private Object[] yysv;
     private Object yyrv;
 
-    public boolean parse() {
+    public boolean parse() throws SimPLFatalException, SimPLExitException {
         int yyn = 0;
         yysp = 0;
         yyst = new int[yyss];
@@ -3151,19 +3153,74 @@ class SimPLParser implements SimPLTokens {
         SimPLParser(SimPLLexer lexer){
                 this.lexer = lexer;
         }
-        private void yyerror(String msg){
+        private void yyerror(String msg) throws SimPLFatalException{
                 lexer.error(msg);
         }
         public Expression getApp(){
                 return app;
         }
         public static void main(String[] args){
-                SimPLLexer lexer = new SimPLLexer();
-                lexer.nextToken();
-                SimPLParser parser = new SimPLParser(lexer);
-                parser.parse();
-                RunTimeState state = new RunTimeState();
-                System.out.println(parser.getApp().eval(state));
+                String filename = null,outfile = null;
+                if(args.length>=2){
+                        for(int i=0;i<args.length;i++){
+                                if(args[i].equals("-f")||args[i].equals("-F")){
+                                        if(i<args.length-1){
+                                                filename = args[i+1];
+                                                break;
+                                        }
+                                }
+                        }
+                }
+                /*
+                String lg = "Input Command:";
+                for(int i=0;i<args.length;i++){
+                        lg+=args[i];
+                        lg+=" ";
+                }
+                Util.log(lg);
+                */
+                InputStream ins = null;
+                if(filename!=null&&filename.length()>4){
+                        if(!filename.contains(".spl")){
+                                Util.log("Input file name should have a suffix of \".spl\" ");
+                                return;
+                        }
+                        Util.loginit(filename.replaceAll(".spl", ".rst"));
+                        try {
+                                ins = new FileInputStream(filename);
+                        } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                                Util.log(e.getMessage());
+                        }
+                }
+                while(true){
+                        try{
+                                SimPLLexer lexer ;
+                                if(ins!=null){
+                                        lexer = new SimPLLexer(ins);
+                                }else{
+                                        Util.log("SimPL>");
+                                        lexer = new SimPLLexer();
+                                }
+                                lexer.nextToken();
+                                SimPLParser parser = new SimPLParser(lexer);
+                                parser.parse();
+                                RunTimeState state = new RunTimeState();
+                                Util.init(state);
+                                Util.log(parser.getApp().eval(state).toString());
+                        }catch(SimPLFatalException e){
+                                Util.log(e.getMessage());
+                        }catch(StackOverflowError ee){
+                                Util.log("StackOverflowError! Currently simPL doesn't support recursive nested anonymous function.");
+                                Util.log("Users should rewrite their code to avoid this problem.");
+                        }catch(SimPLExitException eee){
+                                //Util.log("End of input");
+                                return;
+                        }catch(Exception eeee){
+                                return;
+                        }
+                         Memory.getInstance().clean();
+                }
         }
 
 }

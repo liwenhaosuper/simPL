@@ -11,9 +11,6 @@ public class ListValue extends Value{
 	public ListValue(Value v1,Value v2){
 		this.head = v1;
 		this.tail = v2;
-		if(head==null||tail==null){
-			Util.fatal("Type Error:"+"[" + head.toString() + " " + tail.toString() + "]");
-		}
 		if(!(tail instanceof ListValue)&&!(tail instanceof Nil)){
 			tail = new ListValue(tail,new Nil());			
 		}

@@ -1,6 +1,7 @@
 package liwenhaosuper.sjtu.simpl.syntax;
 
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.runtime.SimPLFatalException;
 import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
 import liwenhaosuper.sjtu.simpl.util.Util;
 
@@ -28,53 +29,80 @@ public class BinaryOperation extends Expression{
 		return bo;
 	}
 	@Override
-	public Value eval(RunTimeState rst){
+	public Value eval(RunTimeState rst) throws SimPLFatalException{
 		Value a = e1.eval(rst);
 		Value b = e2.eval(rst);
-		if(a instanceof IntValue && b instanceof IntValue){//intValue+intValue
-			switch(this.op){
-			case plus:
+		switch(this.op){
+		case plus:
+			if(a instanceof IntValue && b instanceof IntValue){
 				return new IntValue(((IntValue)a).getInt()+((IntValue)b).getInt());
-			case minus:
+			}
+		case minus:
+			if(a instanceof IntValue && b instanceof IntValue){
 				return new IntValue(((IntValue)a).getInt()-((IntValue)b).getInt());
-			case times:
+			}
+		case times:
+			if(a instanceof IntValue && b instanceof IntValue){
 				return new IntValue(((IntValue)a).getInt()*((IntValue)b).getInt());
-			case devide:
+			}
+		case devide:
+			if(a instanceof IntValue && b instanceof IntValue){
+				if(((IntValue)b).getInt()==0){
+					Util.fatal("Runtime error! divide by 0!"+toString());
+				}
 				return new IntValue(((IntValue)a).getInt()/((IntValue)b).getInt());
-			case biggerThan:
+			}
+		case biggerThan:
+			if(a instanceof IntValue && b instanceof IntValue){
 				if(((IntValue)a).getInt()> ((IntValue)b).getInt()){
 					return new BoolValue(true);
 				}else{
 					return new BoolValue(false);
 				}
-			case lessThan:
+			}
+		case lessThan:
+			if(a instanceof IntValue && b instanceof IntValue){
 				if(((IntValue)a).getInt()< ((IntValue)b).getInt()){
 					return new BoolValue(true);
 				}else{
 					return new BoolValue(false);
 				}
-			case equal:
+			}
+		case equal:
+			if(a instanceof IntValue && b instanceof IntValue){
 				if(((IntValue)a).getInt()==((IntValue)b).getInt()){
 					return new BoolValue(true);
 				}else{
 					return new BoolValue(false);
-				}
-			case and:
+				}	
+			}
+			if(a.equals(b)){
+				return new BoolValue(true);
+			}else{
+				return new BoolValue(false);
+			}
+		case and:
+			if(a instanceof IntValue && b instanceof IntValue){
 				if((((IntValue)a).getInt()&((IntValue)b).getInt())!=0){
 					return new BoolValue(true);
 				}else{
 					return new BoolValue(false);
 				}
-			case or:
+			}else if(a instanceof BoolValue && b instanceof BoolValue){
+				return new BoolValue(((BoolValue)a).getBool()&&((BoolValue)b).getBool());
+			}
+		case or:
+			if(a instanceof IntValue && b instanceof IntValue){
 				if((((IntValue)a).getInt()|((IntValue)b).getInt())!=0){
 					return new BoolValue(true);
 				}else{
 					return new BoolValue(false);
 				}
+			}else if(a instanceof BoolValue && b instanceof BoolValue){
+				return new BoolValue(((BoolValue)a).getBool()||((BoolValue)b).getBool());
 			}
-			
 		}
-		Util.fatal("Type Error:"+toString0());
+		Util.fatal("Type Error:"+toString0()+";"+a+":"+a.getClass()+";"+b+":"+b.getClass());
 		return null;
 	}
 	@Override

@@ -47,7 +47,7 @@ in
 	let f = fun y -> (m y) 
 	in (f 2)
 	end
-end 
+end$ 
 
 
 let f = fun x-> if x < 0 then x else (f x-10) end
@@ -118,4 +118,14 @@ let
 		in 
 			(f (f 3)) + x 
 		end 
+end$
+
+#
+let abc = fun x -> 
+	if x < 0 
+	then	x
+	else	(abc x-2)+(abc x-1) 
+	end
+in
+	(abc 10000)
 end$

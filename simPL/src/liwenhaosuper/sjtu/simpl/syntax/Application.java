@@ -1,7 +1,10 @@
 package liwenhaosuper.sjtu.simpl.syntax;
 
-import liwenhaosuper.sjtu.simpl.runtime.Memory;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.runtime.SimPLFatalException;
 import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
 import liwenhaosuper.sjtu.simpl.util.Util;
 
@@ -19,26 +22,44 @@ public class Application extends Expression{
 		return app;
 	}
 	@Override
-	public Value eval(RunTimeState rst){
+	public Value eval(RunTimeState rst) throws SimPLFatalException{
 		Value par = param.eval(rst);
-		Util.log("app:"+toString());
+		Value funcv = func.eval(rst);
+		if(funcv instanceof AnonymousFunction){
+			Value ret = ((AnonymousFunction)funcv).invokeFunc(par, rst).eval(rst);
+			//Util.log("ret:"+ret.toString());
+			return ret;
+		}
+		/*
 		if(func instanceof Variable){
 			Integer id = rst.get(((Variable)func).name);
+			if(id==null){
+				Util.fatal("Syntax Error:"+((Variable)func).name+" not defined!");
+			}
 			Value vfunc = Memory.getInstance().getValue(id);
 			if(vfunc instanceof AnonymousFunction){
-				return ((AnonymousFunction)vfunc).invokeFunc(par, rst);
+				Value v1 = ((AnonymousFunction)vfunc).invokeFunc(par, rst).eval(rst);
+				return v1;
 			}
 		}else if(func instanceof AnonymousFunction){
-			return ((AnonymousFunction)func).invokeFunc(par, rst);
+			Value v2 = ((AnonymousFunction)func).invokeFunc(par, rst).eval(rst);
+			return v2;
 		}else if(func instanceof Application){
 			Value vapp = func.eval(rst);
-			return new Application(vapp,par).eval(rst);
+			Value v3 = new Application(vapp,par).eval(rst);
+			return v3;
 		}//FIXME: nested application!!!
-		
+		*/
 		Util.fatal("Type error:"+func+"is not a function."+ toString());
 		return null;
 	}
-	public String toString(){
+	public String toString(){ 
+		try {
+			FileInputStream fin = new FileInputStream("");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "(" + func.toString() + " " + param.toString() + ")";
 	}
 }

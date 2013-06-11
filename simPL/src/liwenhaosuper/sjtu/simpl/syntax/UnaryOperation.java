@@ -1,6 +1,7 @@
 package liwenhaosuper.sjtu.simpl.syntax;
 
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.runtime.SimPLFatalException;
 import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
 import liwenhaosuper.sjtu.simpl.util.Util;
 
@@ -22,7 +23,7 @@ public class UnaryOperation extends Expression{
 		return new UnaryOperation(e.nestedReplace(sf),op);
 	}
 	@Override
-	public Value eval(RunTimeState rst){
+	public Value eval(RunTimeState rst) throws SimPLFatalException{
 		Value v = e.eval(rst);
 		if(v instanceof BoolValue){
 			if(((BoolValue)v).getBool()){

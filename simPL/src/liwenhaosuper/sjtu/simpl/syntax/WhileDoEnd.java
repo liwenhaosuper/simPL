@@ -1,6 +1,7 @@
 package liwenhaosuper.sjtu.simpl.syntax;
 
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.runtime.SimPLFatalException;
 import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
 import liwenhaosuper.sjtu.simpl.util.Util;
 
@@ -17,7 +18,7 @@ public class WhileDoEnd extends Expression{
 		return new WhileDoEnd(condition.nestedReplace(sf),body.nestedReplace(sf));
 	}
 	@Override
-	public Value eval(RunTimeState rst){
+	public Value eval(RunTimeState rst) throws SimPLFatalException{
 		Value condv = condition.eval(rst);
 		if(condv instanceof BoolValue){
 			BoolValue bval = (BoolValue)condv;

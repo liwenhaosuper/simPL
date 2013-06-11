@@ -1,6 +1,7 @@
 package liwenhaosuper.sjtu.simpl.syntax;
 
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.runtime.SimPLFatalException;
 import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
 import liwenhaosuper.sjtu.simpl.util.Util;
 
@@ -19,7 +20,7 @@ public class IfThenElse extends Expression{
 		return new IfThenElse(condition.nestedReplace(sf),thenClause.nestedReplace(sf),elseClause.nestedReplace(sf));
 	}
 	@Override
-	public Value eval(RunTimeState rst){
+	public Value eval(RunTimeState rst) throws SimPLFatalException{
 		Value condv = condition.eval(rst);
 		if(condv instanceof BoolValue){
 			if(((BoolValue)condv).getBool()){

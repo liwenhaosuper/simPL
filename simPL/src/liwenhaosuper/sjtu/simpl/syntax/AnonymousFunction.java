@@ -2,8 +2,8 @@ package liwenhaosuper.sjtu.simpl.syntax;
 
 import liwenhaosuper.sjtu.simpl.runtime.Memory;
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.runtime.SimPLFatalException;
 import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
-import liwenhaosuper.sjtu.simpl.util.Util;
 
 public class AnonymousFunction extends Value{
 	Variable arg;
@@ -19,27 +19,31 @@ public class AnonymousFunction extends Value{
 	}
 	@Override
 	public Expression nestedReplace(StateFrame sf){
-		AnonymousFunction func = new AnonymousFunction((Variable)arg.nestedReplace(sf),body.nestedReplace(sf));
+		AnonymousFunction func = new AnonymousFunction(arg,body.nestedReplace(sf));
 		return func;
 	}
-	public Value invokeFunc(Value val,RunTimeState rst){
+	@Override
+	public boolean equals(Object obj){
+		return false;
+	}
+	public Value invokeFunc(Value val,RunTimeState rst) throws SimPLFatalException{
 		StateFrame nst = new StateFrame();
 		int addr = Memory.getInstance().allocate(val);
 		nst.put(arg.name, addr);
 		rst.popin(nst);
 		Value bd = body.eval(rst);
+		
 		if(bd instanceof AnonymousFunction){
 			//TODO: FIXME
-			Util.log("Nested AnonymousFunction is a bug!!!"+bd);
+			//Util.log("before:"+bd);
 			StateFrame sf = new StateFrame();
 			sf.put(arg.name, addr);
-			bd = (Value)bd.nestedReplace(sf);
-			Util.log("after:"+bd);
+			bd = (AnonymousFunction)bd.nestedReplace(sf);
+			//Util.log("after:"+bd);
 		}
 		rst.popout();
 		return bd;
 	}
-	
 	public String toString(){
 		return "fun " + arg.toString() + " -> " + body.toString();
 		//return eval().toString();

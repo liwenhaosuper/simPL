@@ -44,7 +44,7 @@ public class Memory {
 		m.remove(addr);
 	}
 	
-	public void set(int addr, Value v)
+	public void set(int addr, Value v) throws SimPLFatalException
 	{
 		if(m.containsKey(addr))
 		{

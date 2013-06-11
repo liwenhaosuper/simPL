@@ -1,6 +1,7 @@
 package liwenhaosuper.sjtu.simpl.syntax;
 
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.runtime.SimPLFatalException;
 import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
 
 public class List extends Expression{
@@ -16,7 +17,7 @@ public class List extends Expression{
 		return new List(head.nestedReplace(sf),tail.nestedReplace(sf));
 	}
 	@Override
-	public Value eval(RunTimeState rst){
+	public Value eval(RunTimeState rst) throws SimPLFatalException{
 		if(head==null||tail==null){
 			return new Nil();
 		}

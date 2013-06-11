@@ -2,6 +2,7 @@ package liwenhaosuper.sjtu.simpl.syntax;
 
 import liwenhaosuper.sjtu.simpl.runtime.Memory;
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.runtime.SimPLFatalException;
 import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
 
 public class LetInEnd extends Expression{
@@ -16,10 +17,10 @@ public class LetInEnd extends Expression{
 	}
 	@Override
 	public Expression nestedReplace(StateFrame sf){
-		return new LetInEnd((Variable)x.nestedReplace(sf),definition.nestedReplace(sf),body.nestedReplace(sf));
+		return new LetInEnd(x/*.nestedReplace(sf)*/,definition.nestedReplace(sf),body.nestedReplace(sf));
 	}
 	@Override
-	public Value eval(RunTimeState rst){
+	public Value eval(RunTimeState rst) throws SimPLFatalException{
 		StateFrame nst = new StateFrame();
 		Integer addr = Memory.getInstance().allocate(definition.eval(rst));
 		nst.put(x.name, addr);

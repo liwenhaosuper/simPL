@@ -2,6 +2,7 @@ package liwenhaosuper.sjtu.simpl.syntax;
 
 import liwenhaosuper.sjtu.simpl.runtime.Memory;
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
+import liwenhaosuper.sjtu.simpl.runtime.SimPLFatalException;
 import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
 import liwenhaosuper.sjtu.simpl.util.Util;
 
@@ -21,15 +22,17 @@ public class Variable extends Expression{
 			return new Variable(name);
 		}
 		Value v = Memory.getInstance().getValue(addr);
+		
 		if(v == null || v instanceof AnonymousFunction){
 			return new Variable(name);
 		}
 		else{
 			return v;
 		}
+		
 	}
 	@Override
-	public Value eval(RunTimeState rst){
+	public Value eval(RunTimeState rst) throws SimPLFatalException{
 		Integer id = rst.get(name);
 		if(id==null){
 			Util.fatal("Runtime Error:"+name+" not defined!");

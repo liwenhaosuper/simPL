@@ -5,15 +5,19 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import liwenhaosuper.sjtu.simpl.runtime.SimPLExitException;
+import liwenhaosuper.sjtu.simpl.runtime.SimPLFatalException;
 import liwenhaosuper.sjtu.simpl.syntax.BoolValue;
 import liwenhaosuper.sjtu.simpl.syntax.IntValue;
 import liwenhaosuper.sjtu.simpl.syntax.Variable;
+import liwenhaosuper.sjtu.simpl.util.Util;
 
 public class SimPLLexer implements SimPLTokens{
 	private int c =  ' ';
 	private int token;
 	private Object yylval;
-	private int line,column;
+	private static int line = 1,column = 0;
+	private int comments = 0;
 	private static final Map<String, Integer> KEYWORDS;
 	private InputStream input;
 	static {
@@ -36,12 +40,22 @@ public class SimPLLexer implements SimPLTokens{
 		KEYWORDS.put("or",OR);
 		KEYWORDS.put("not",NOT);
 	}
-	/** Read a single input character from standard input or from stream.*/
-	private void nextChar() {
+	/** Read a single input character from standard input or from stream.
+	 * @throws SimPLExitException */
+	private void nextChar() throws SimPLExitException {
   		if (c>=0) {
   			if(input!=null){
   				try {
 					c = input.read();
+					if(c==-1){
+						throw new SimPLExitException("end of input");
+					}
+	      			if(c=='\n'){
+	      				column = 0;
+	      				line ++;
+	      			}else{
+	      				column ++;
+	      			}
 				} catch (IOException e) {
 					c = -1;
 				}
@@ -58,20 +72,19 @@ public class SimPLLexer implements SimPLTokens{
     		} catch (Exception e) {
     			c = (-1);
     		}
+  		}else{
+  			throw new SimPLExitException("end of input");
   		}
 	}
-	public void error(String msg){
-		System.out.println("Syntax Error! " + msg+". At line:"+line+",column:"+column);
-		System.exit(1);
+	public void error(String msg) throws SimPLFatalException{
+		Util.log("Syntax Error! " + msg+". At line:"+line+",column:"+column);
+		throw new SimPLFatalException(msg);
 	}
 	public SimPLLexer(InputStream in){
 		this.input = in;
-		line = 1;
-		column = 0;
 	}
 	public SimPLLexer(){
-		line = 1;
-		column = 0;
+
 	}
     /** Return the token code for the current lexeme.
      */
@@ -83,21 +96,35 @@ public class SimPLLexer implements SimPLTokens{
     }
 	/** Read the next token and return the
      *  corresponding integer code.
+	 * @throws SimPLFatalException 
+	 * @throws SimPLExitException 
      */
-    int nextToken() {
+    int nextToken() throws SimPLFatalException, SimPLExitException {
     	boolean inComment = false;
     	for (;;) {
-    		if(inComment){
-    			while (c != '*' && c != -1) {
+    		while(inComment){
+    			while (c != '*' && c != -1 && c != '/') {
     				nextChar();
     			}
     			if (c == '*') {
     				nextChar();
-    				if (c == ')') {
+    				if (c == '/') {
     					nextChar();
-    					inComment = false;
+    					comments--;
+    					if(comments==0) inComment = false;
     				}
     				continue;
+    			}
+    			if(c=='/'){
+    				nextChar();
+    				if(c=='*'){
+    					comments++;
+    					nextChar();
+    				}
+    				continue;
+    			}
+    			if(c==-1&&inComment){
+    				throw new SimPLFatalException("Syntax Error! At line:"+line+",column:"+column);
     			}
     		}
     		
@@ -122,6 +149,12 @@ public class SimPLLexer implements SimPLTokens{
     		case '*' : nextChar();
                 return token='*';
     		case '/' : nextChar();
+    			if(c=='*'){
+    				inComment = true;
+    				comments++;
+    				nextChar();
+    				continue;
+    			}
                 return token='/';
     		case '(' : nextChar();
                 return token='(';

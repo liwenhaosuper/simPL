@@ -12,6 +12,13 @@ public class BoolValue extends Value{
 		return value;
 	}
 	@Override
+	public boolean equals(Object obj){
+		if(obj instanceof BoolValue){
+			return value == ((BoolValue)obj).value;
+		}
+		return false;
+	}
+	@Override
 	public Value eval(RunTimeState rst){
 		return this;
 	}

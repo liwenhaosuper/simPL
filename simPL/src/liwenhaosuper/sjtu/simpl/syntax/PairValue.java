@@ -10,9 +10,6 @@ public class PairValue extends Value{
 	public PairValue(Value e1,Value e2){
 		this.e1 = e1;
 		this.e2 = e2;
-		if(e1==null||e2==null){
-			Util.fatal("Runtime Error:PairValue is null!");
-		}
 	}
 	@Override
 	public Value eval(RunTimeState rst){
