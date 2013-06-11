@@ -17,10 +17,10 @@ public class Second extends Expression{
 		if( obj instanceof Expression){
 			Value val;
 			try {
-				val = e.eval(Util.env());
+				val = e.eval();
 				
 				if(val instanceof PairValue){
-					return ((PairValue) val).getSecond().equals(((Expression) obj).eval(Util.env()));
+					return ((PairValue) val).getSecond().equals(((Expression) obj).eval());
 				}
 			} catch (SimPLFatalException e) {
 				// TODO Auto-generated catch block
@@ -34,8 +34,8 @@ public class Second extends Expression{
 		return new Second(e.nestedReplace(sf));
 	}
 	@Override
-	public Value eval(RunTimeState rst) throws SimPLFatalException{
-		Value val = e.eval(rst);
+	public Value eval() throws SimPLFatalException{
+		Value val = e.eval();
 		if(val instanceof PairValue){
 			return ((PairValue)val).e2;
 		}

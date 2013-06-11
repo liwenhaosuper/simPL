@@ -22,11 +22,11 @@ public class Application extends Expression{
 		return app;
 	}
 	@Override
-	public Value eval(RunTimeState rst) throws SimPLFatalException{
-		Value par = param.eval(rst);
-		Value funcv = func.eval(rst);
+	public Value eval() throws SimPLFatalException{
+		Value par = param.eval();
+		Value funcv = func.eval();
 		if(funcv instanceof AnonymousFunction){
-			Value ret = ((AnonymousFunction)funcv).invokeFunc(par, rst).eval(rst);
+			Value ret = ((AnonymousFunction)funcv).invokeFunc(par).eval();
 			//Util.log("ret:"+ret.toString());
 			return ret;
 		}

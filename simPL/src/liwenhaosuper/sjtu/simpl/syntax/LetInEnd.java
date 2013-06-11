@@ -4,6 +4,7 @@ import liwenhaosuper.sjtu.simpl.runtime.Memory;
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
 import liwenhaosuper.sjtu.simpl.runtime.SimPLFatalException;
 import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
+import liwenhaosuper.sjtu.simpl.util.Util;
 
 public class LetInEnd extends Expression{
 	Variable x;
@@ -20,13 +21,13 @@ public class LetInEnd extends Expression{
 		return new LetInEnd(x/*.nestedReplace(sf)*/,definition.nestedReplace(sf),body.nestedReplace(sf));
 	}
 	@Override
-	public Value eval(RunTimeState rst) throws SimPLFatalException{
+	public Value eval() throws SimPLFatalException{
 		StateFrame nst = new StateFrame();
-		Integer addr = Memory.getInstance().allocate(definition.eval(rst));
+		Integer addr = Memory.getInstance().allocate(definition.eval());
 		nst.put(x.name, addr);
-		rst.popin(nst);
-		Value res = body.eval(rst);
-		rst.popout();
+		Util.env().popin(nst);
+		Value res = body.eval();
+		Util.env().popout();
 		return res;
 	}
 	public String toString(){

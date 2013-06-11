@@ -1,4 +1,4 @@
-// Output created by jacc on Tue Jun 11 12:59:32 CST 2013
+// Output created by jacc on Tue Jun 11 16:49:05 CST 2013
 
 state 0 (entry on prog)
     $accept : _prog $end
@@ -1028,14 +1028,12 @@ state 47 (entry on expr)
     expr : expr_COLONEQUAL expr    (20)
     expr : expr_';' expr    (21)
 
-    UNIT error
-    TRUE error
-    FALSE error
-    error error
     ALLOW error
     '$' error
-    '*' shift 23
-    '/' shift 26
+    UNIT error
+    FALSE error
+    error error
+    TRUE error
     . reduce 9
 
 state 48 (entry on expr)
@@ -1103,14 +1101,12 @@ state 50 (entry on expr)
     expr : expr_COLONEQUAL expr    (20)
     expr : expr_';' expr    (21)
 
-    UNIT error
-    TRUE error
-    FALSE error
-    error error
     ALLOW error
     '$' error
-    '*' shift 23
-    '/' shift 26
+    UNIT error
+    FALSE error
+    error error
+    TRUE error
     . reduce 10
 
 state 51 (entry on expr)

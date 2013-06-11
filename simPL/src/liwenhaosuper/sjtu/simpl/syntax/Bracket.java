@@ -15,8 +15,8 @@ public class Bracket extends Expression{
 		return new Bracket(e.nestedReplace(sf));
 	}
 	@Override
-	public Value eval(RunTimeState rst) throws SimPLFatalException{
-		return e.eval(rst);
+	public Value eval() throws SimPLFatalException{
+		return e.eval();
 	}
 	
 	public String toString(){

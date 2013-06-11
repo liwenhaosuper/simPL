@@ -18,15 +18,15 @@ public class WhileDoEnd extends Expression{
 		return new WhileDoEnd(condition.nestedReplace(sf),body.nestedReplace(sf));
 	}
 	@Override
-	public Value eval(RunTimeState rst) throws SimPLFatalException{
-		Value condv = condition.eval(rst);
+	public Value eval() throws SimPLFatalException{
+		Value condv = condition.eval();
 		if(condv instanceof BoolValue){
 			BoolValue bval = (BoolValue)condv;
 			while (bval.getBool()){
-				if(!(body.eval(rst) instanceof Nop)){
+				if(!(body.eval() instanceof Nop)){
 					Util.fatal("Type Error!"+body.toString()+" should be a unit type!");
 				}
-				bval = (BoolValue)condition.eval(rst);
+				bval = (BoolValue)condition.eval();
 			}
 			return new Nop();
 		}

@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import liwenhaosuper.sjtu.simpl.util.Util;
+
 public class StateFrame {
 	private HashMap<String,Integer> env;
 	
@@ -29,13 +31,19 @@ public class StateFrame {
 	public Integer get(String id)
 	{
 		StateFrame st = this;
-		while(st != null)
-		{
-			Integer addr = st.env.get(id);
-			if(addr == null)
-				st = st.outerBlockState;
-			else
-				return addr;
+		Integer addr;
+		try{
+			while(st != null)
+			{
+				addr = st.env.get(id);
+				if(addr == null)
+					st = st.outerBlockState;
+				else
+					return addr;
+			}
+		}catch(StackOverflowError e){
+			Util.log(toString());
+			throw e;
 		}
 		
 		return null;

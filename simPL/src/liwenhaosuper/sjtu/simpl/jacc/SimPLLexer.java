@@ -84,7 +84,8 @@ public class SimPLLexer implements SimPLTokens{
 		this.input = in;
 	}
 	public SimPLLexer(){
-
+		line = 1;
+		column = 0;
 	}
     /** Return the token code for the current lexeme.
      */

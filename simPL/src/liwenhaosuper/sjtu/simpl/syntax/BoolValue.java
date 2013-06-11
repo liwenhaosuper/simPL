@@ -19,7 +19,7 @@ public class BoolValue extends Value{
 		return false;
 	}
 	@Override
-	public Value eval(RunTimeState rst){
+	public Value eval(){
 		return this;
 	}
 	public String toString(){

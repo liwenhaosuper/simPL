@@ -32,8 +32,8 @@ public class Variable extends Expression{
 		
 	}
 	@Override
-	public Value eval(RunTimeState rst) throws SimPLFatalException{
-		Integer id = rst.get(name);
+	public Value eval() throws SimPLFatalException{
+		Integer id = Util.env().get(name);
 		if(id==null){
 			Util.fatal("Runtime Error:"+name+" not defined!");
 		}

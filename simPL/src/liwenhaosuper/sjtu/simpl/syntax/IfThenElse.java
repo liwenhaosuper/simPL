@@ -20,13 +20,13 @@ public class IfThenElse extends Expression{
 		return new IfThenElse(condition.nestedReplace(sf),thenClause.nestedReplace(sf),elseClause.nestedReplace(sf));
 	}
 	@Override
-	public Value eval(RunTimeState rst) throws SimPLFatalException{
-		Value condv = condition.eval(rst);
+	public Value eval() throws SimPLFatalException{
+		Value condv = condition.eval();
 		if(condv instanceof BoolValue){
 			if(((BoolValue)condv).getBool()){
-				return thenClause.eval(rst);
+				return thenClause.eval();
 			}else{
-				return elseClause.eval(rst);
+				return elseClause.eval();
 			}
 		}
 		Util.fatal("Runtime Error!"+toString());

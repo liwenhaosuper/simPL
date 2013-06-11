@@ -20,13 +20,13 @@ public class Assignment extends Expression{
 		return assign;
 	}
 	@Override
-	public Value eval(RunTimeState rst) throws SimPLFatalException{
-		Value va = val.eval(rst);
+	public Value eval() throws SimPLFatalException{
+		Value va = val.eval();
 		Expression exp = var;
 		if(!(var instanceof Variable)){
 			Util.log("Assignment error: no support for nested/indirect assignment");
 		}
-		Memory.getInstance().set(rst.get(((Variable)exp).name), va);
+		Memory.getInstance().set(Util.env().get(((Variable)exp).name), va);
 		return new Nop();
 	}
 	

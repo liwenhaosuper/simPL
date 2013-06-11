@@ -23,8 +23,8 @@ public class UnaryOperation extends Expression{
 		return new UnaryOperation(e.nestedReplace(sf),op);
 	}
 	@Override
-	public Value eval(RunTimeState rst) throws SimPLFatalException{
-		Value v = e.eval(rst);
+	public Value eval() throws SimPLFatalException{
+		Value v = e.eval();
 		if(v instanceof BoolValue){
 			if(((BoolValue)v).getBool()){
 				return new BoolValue(false);

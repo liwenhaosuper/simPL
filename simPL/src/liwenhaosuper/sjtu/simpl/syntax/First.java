@@ -16,9 +16,9 @@ public class First extends Expression{
 		if( obj instanceof Expression){
 			Value val;
 			try {
-				val = e.eval(Util.env());	
+				val = e.eval();	
 				if(val instanceof PairValue){
-					return ((PairValue) val).getFirst().equals(((Expression) obj).eval(Util.env()));
+					return ((PairValue) val).getFirst().equals(((Expression) obj).eval());
 				}
 			} catch (SimPLFatalException e) {
 				// TODO Auto-generated catch block
@@ -28,8 +28,8 @@ public class First extends Expression{
 		return false;
 	}
 	@Override
-	public Value eval(RunTimeState rst) throws SimPLFatalException{
-		Value val = e.eval(rst);
+	public Value eval() throws SimPLFatalException{
+		Value val = e.eval();
 		if(val instanceof PairValue){
 			return ((PairValue)val).e1;
 		}

@@ -30,7 +30,7 @@
 %left AND OR
 %left  '=' '>' '<'
 %left  '+' '-'
-%right '*' '/'
+%left '*' '/'
 %left  NOT '~'
 %left FST SND HEAD TAIL 
 
@@ -158,11 +158,12 @@ val  : INTEGER	{ $$ = $1; } /*new IntValue(Integer.parseInt($1))*/
 				parser.parse();
 				RunTimeState state = new RunTimeState();
 				Util.init(state);
-				Util.log(parser.getApp().eval(state).toString());
+				Util.log(parser.getApp().eval().toString());
 			}catch(SimPLFatalException e){
 			 	Util.log(e.getMessage());
 			}catch(StackOverflowError ee){
 				Util.log("StackOverflowError! Currently simPL doesn't support recursive nested anonymous function. Users should rewrite their code to avoid this problem.");
+				ee.printStackTrace();
 			}catch(SimPLExitException eee){
 				//Util.log("End of input");
 				return;

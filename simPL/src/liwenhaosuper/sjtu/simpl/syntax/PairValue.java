@@ -12,7 +12,7 @@ public class PairValue extends Value{
 		this.e2 = e2;
 	}
 	@Override
-	public Value eval(RunTimeState rst){
+	public Value eval(){
 		return this;
 	}
 	public Value getFirst(){

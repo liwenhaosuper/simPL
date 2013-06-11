@@ -4,6 +4,7 @@ import liwenhaosuper.sjtu.simpl.runtime.Memory;
 import liwenhaosuper.sjtu.simpl.runtime.RunTimeState;
 import liwenhaosuper.sjtu.simpl.runtime.SimPLFatalException;
 import liwenhaosuper.sjtu.simpl.runtime.StateFrame;
+import liwenhaosuper.sjtu.simpl.util.Util;
 
 public class AnonymousFunction extends Value{
 	Variable arg;
@@ -14,7 +15,7 @@ public class AnonymousFunction extends Value{
 		this.body = body;
 	}
 	@Override
-	public Value eval(RunTimeState rst){
+	public Value eval(){
 		return this;
 	}
 	@Override
@@ -26,12 +27,12 @@ public class AnonymousFunction extends Value{
 	public boolean equals(Object obj){
 		return false;
 	}
-	public Value invokeFunc(Value val,RunTimeState rst) throws SimPLFatalException{
+	public Value invokeFunc(Value val) throws SimPLFatalException{
 		StateFrame nst = new StateFrame();
 		int addr = Memory.getInstance().allocate(val);
 		nst.put(arg.name, addr);
-		rst.popin(nst);
-		Value bd = body.eval(rst);
+		Util.env().popin(nst);
+		Value bd = body.eval();
 		
 		if(bd instanceof AnonymousFunction){
 			//TODO: FIXME
@@ -41,7 +42,7 @@ public class AnonymousFunction extends Value{
 			bd = (AnonymousFunction)bd.nestedReplace(sf);
 			//Util.log("after:"+bd);
 		}
-		rst.popout();
+		Util.env().popout();
 		return bd;
 	}
 	public String toString(){

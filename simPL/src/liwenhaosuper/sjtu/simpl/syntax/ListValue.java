@@ -26,7 +26,7 @@ public class ListValue extends Value{
 		return "[" + head.toString() + " " + tail.toString() + "]";
 	}
 	@Override
-	public Value eval(RunTimeState rst){
+	public Value eval(){
 		return this;
 	}
 	@Override

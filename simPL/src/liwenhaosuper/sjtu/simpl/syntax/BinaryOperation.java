@@ -29,9 +29,9 @@ public class BinaryOperation extends Expression{
 		return bo;
 	}
 	@Override
-	public Value eval(RunTimeState rst) throws SimPLFatalException{
-		Value a = e1.eval(rst);
-		Value b = e2.eval(rst);
+	public Value eval() throws SimPLFatalException{
+		Value a = e1.eval();
+		Value b = e2.eval();
 		switch(this.op){
 		case plus:
 			if(a instanceof IntValue && b instanceof IntValue){

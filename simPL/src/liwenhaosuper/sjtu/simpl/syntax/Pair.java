@@ -19,11 +19,11 @@ public class Pair extends Expression{
 	}
 
 	@Override
-	public Value eval(RunTimeState rst) throws SimPLFatalException{
+	public Value eval() throws SimPLFatalException{
 		if(e1==null||e2==null){
 			return new Nil();
 		}
-		return new PairValue(e1.eval(rst),e2.eval(rst));
+		return new PairValue(e1.eval(),e2.eval());
 	}
 	public String toString(){
 		//System.out.println("(" + e1.toString() + ", " + e2.toString() + ")");

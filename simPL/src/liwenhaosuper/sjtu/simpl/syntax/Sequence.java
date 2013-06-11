@@ -18,11 +18,11 @@ public class Sequence extends Expression{
 		return new Sequence(e1.nestedReplace(sf),e2.nestedReplace(sf));
 	}
 	@Override
-	public Value eval(RunTimeState rst) throws SimPLFatalException{
-		if(!(e1.eval(rst) instanceof Nop)){
+	public Value eval() throws SimPLFatalException{
+		if(!(e1.eval() instanceof Nop)){
 			Util.fatal("Type Error!"+e1.toString()+": it should be a unit type!");
 		}
-		return e2.eval(rst);
+		return e2.eval();
 	}
 	
 	public String toString(){

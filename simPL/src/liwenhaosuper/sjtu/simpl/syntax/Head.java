@@ -20,10 +20,10 @@ public class Head extends Expression{
 		if( obj instanceof Expression){
 			Value val;
 			try {
-				val = e.eval(Util.env());
+				val = e.eval();
 				
 				if(val instanceof ListValue){
-					return ((ListValue)val).getHead().equals(((Expression) obj).eval(Util.env()));
+					return ((ListValue)val).getHead().equals(((Expression) obj).eval());
 				}else{
 					Util.fatal("Type Error! in "+toString()+": "+e.toString()+" is not a list type");
 				}
@@ -35,8 +35,8 @@ public class Head extends Expression{
 		return false;
 	}
 	@Override
-	public Value eval(RunTimeState rst) throws SimPLFatalException{
-		Value val = e.eval(rst);
+	public Value eval() throws SimPLFatalException{
+		Value val = e.eval();
 		if(val instanceof ListValue){
 			return ((ListValue)val).getHead();
 		}

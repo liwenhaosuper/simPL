@@ -1,4 +1,4 @@
-// Output created by jacc on Tue Jun 11 12:59:32 CST 2013
+// Output created by jacc on Tue Jun 11 16:49:05 CST 2013
 
 package liwenhaosuper.sjtu.simpl.jacc;
 
@@ -2165,17 +2165,13 @@ class SimPLParser implements SimPLTokens {
 
     private int yys47() {
         switch (yytok) {
-            case UNIT:
-            case TRUE:
-            case FALSE:
-            case error:
             case ALLOW:
             case '$':
+            case UNIT:
+            case FALSE:
+            case error:
+            case TRUE:
                 return 155;
-            case '*':
-                return 23;
-            case '/':
-                return 26;
         }
         return yyr9();
     }
@@ -2216,17 +2212,13 @@ class SimPLParser implements SimPLTokens {
 
     private int yys50() {
         switch (yytok) {
-            case UNIT:
-            case TRUE:
-            case FALSE:
-            case error:
             case ALLOW:
             case '$':
+            case UNIT:
+            case FALSE:
+            case error:
+            case TRUE:
                 return 155;
-            case '*':
-                return 23;
-            case '/':
-                return 26;
         }
         return yyr10();
     }
@@ -3207,11 +3199,12 @@ class SimPLParser implements SimPLTokens {
                                 parser.parse();
                                 RunTimeState state = new RunTimeState();
                                 Util.init(state);
-                                Util.log(parser.getApp().eval(state).toString());
+                                Util.log(parser.getApp().eval().toString());
                         }catch(SimPLFatalException e){
                                 Util.log(e.getMessage());
                         }catch(StackOverflowError ee){
                                 Util.log("StackOverflowError! Currently simPL doesn't support recursive nested anonymous function. Users should rewrite their code to avoid this problem.");
+                                ee.printStackTrace();
                         }catch(SimPLExitException eee){
                                 //Util.log("End of input");
                                 return;

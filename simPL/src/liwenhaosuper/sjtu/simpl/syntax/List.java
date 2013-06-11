@@ -17,12 +17,12 @@ public class List extends Expression{
 		return new List(head.nestedReplace(sf),tail.nestedReplace(sf));
 	}
 	@Override
-	public Value eval(RunTimeState rst) throws SimPLFatalException{
+	public Value eval() throws SimPLFatalException{
 		if(head==null||tail==null){
 			return new Nil();
 		}
 		//Util.log(toString());
-		return new ListValue(head.eval(rst),tail.eval(rst));
+		return new ListValue(head.eval(),tail.eval());
 	}
 	@Override
 	public String toString(){
